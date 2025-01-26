@@ -9,12 +9,13 @@ export default {
 	theme: {
 		extend: {
 			colors: {
+				// See: https://colorffy.com/dark-theme-generator?colors=bd6ed5-121212
 				// Palette
-				primary: '#263037',
-				'primary-hover': '#36454f',
-				'primary-selected': '#535a5e',
-				secondary: '#b87333',
-				'secondary-hover': '#fff',
+				primary: '#121212',
+				'primary-hover': '#3f3f3f',
+				'primary-selected': '#282828',
+				secondary: '#bd6ed5',
+				'secondary-hover': '#cd8fdf',
 
 				// State
 				enabled: '#2a7a0c',
