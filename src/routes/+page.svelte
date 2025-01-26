@@ -3,6 +3,8 @@
 </script>
 
 <FlexContainer>
-	<StyledTitle text="Template frontend" />
-	<StyledLink text="Enter the frontend" link="/login" showAsButton={true} />
+	<StyledTitle text="Select your qwixx sheet" />
+	<StyledLink text="Classic" link="/classic" showAsButton={true} />
+	<StyledLink text="Variant 2" link="/variant2" showAsButton={true} />
+	<StyledLink text="Custom" link="/custom" showAsButton={true} />
 </FlexContainer>

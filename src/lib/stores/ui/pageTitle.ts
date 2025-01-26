@@ -1,6 +1,6 @@
 import { writable } from 'svelte/store';
 
-const HOMEPAGE_TITLE: string = 'Template frontend';
+const HOMEPAGE_TITLE: string = 'Qwixx sheet';
 
 export { HOMEPAGE_TITLE };
 
