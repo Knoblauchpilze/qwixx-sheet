@@ -24,6 +24,6 @@ lint:
 docker:
 	docker build \
 		--build-arg GIT_COMMIT_HASH=${GIT_COMMIT_HASH} \
-		--tag totocorpsoftwareinc/qwixx-sheet:${GIT_COMMIT_HASH} \
+		--tag totocorpsoftwareinc/qwixx-sheet-frontend:${GIT_COMMIT_HASH} \
 		-f build/Dockerfile \
 		.

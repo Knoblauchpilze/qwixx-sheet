@@ -70,7 +70,7 @@ jobs:
             GIT_COMMIT_HASH=${{ needs.extract-service-tag.outputs.version }}
           # https://stackoverflow.com/questions/71679568/github-actions-ignore-or-exclude-dependabot-pull-requests
           push: ${{ github.actor != 'dependabot[bot]' }}
-          tags: totocorpsoftwareinc/qwixx-sheet:${{ needs.extract-service-tag.outputs.version }}
+          tags: totocorpsoftwareinc/qwixx-sheet-frontend:${{ needs.extract-service-tag.outputs.version }}
 
   update-deployment:
     runs-on: ubuntu-latest
@@ -83,11 +83,11 @@ jobs:
           token: ${{ secrets.DEPLOYMENT_TOKEN }}
       - name: Update service tag
         run: |
-          echo "${{ needs.extract-service-tag.outputs.version }}" > ./build/qwixx-sheet/version.txt
+          echo "${{ needs.extract-service-tag.outputs.version }}" > ./build/qwixx-sheet-frontend/version.txt
       - name: 'Commit changes'
         run: |
           git pull
           git config --global user.name 'totocorpbot'
           git config --global user.email 'totocorpbot@users.noreply.github.com'
-          git commit -am "infra: Bumped qwixx-sheet version to ${{ needs.extract-service-tag.outputs.version }}"
+          git commit -am "infra: Bumped qwixx-sheet-frontend version to ${{ needs.extract-service-tag.outputs.version }}"
           git push
