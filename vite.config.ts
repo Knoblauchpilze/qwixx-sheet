@@ -6,6 +6,7 @@ export default defineConfig({
 
 	test: {
 		include: ['src/**/*.{test,spec}.{js,ts}'],
+		passWithNoTests: true,
 		coverage: {
 			reporter: ['json'],
 			include: ['src/**/*.{js,ts,svelte}'],
