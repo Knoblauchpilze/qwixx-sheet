@@ -1,4 +1,4 @@
-import { Color } from "$lib/enums/color";
+import { Color } from '$lib/enums/color';
 
 export function cssTextColorFromColor(color: Color): string {
 	switch (color) {

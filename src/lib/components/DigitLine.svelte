@@ -11,7 +11,7 @@
 	let { digits, color }: Props = $props();
 </script>
 
-<FlexContainer vertical={false} styling={"space-x-1"}>
+<FlexContainer vertical={false} styling={'space-x-1'}>
 	{#each digits as digit}
 		<DigitCard {digit} {color} />
 	{/each}
