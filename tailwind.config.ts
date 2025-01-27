@@ -16,6 +16,7 @@ export default {
 				'primary-selected': '#282828',
 				secondary: '#bd6ed5',
 				'secondary-hover': '#cd8fdf',
+				accent: '#575757',
 
 				// State
 				enabled: '#2a7a0c',
@@ -27,9 +28,6 @@ export default {
 				// Miscellaneous
 				overlay: '#0005'
 			},
-			backgroundImage: {
-				homepage: "url('$lib/assets/background.webp')"
-			}
 		}
 	},
 
