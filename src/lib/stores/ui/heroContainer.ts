@@ -7,9 +7,9 @@ export type HeroContainerProps = {
 };
 
 const HOMEPAGE_HERO_CONTAINER_PROPS: HeroContainerProps = {
-	width: 'w-1/3',
-	height: 'h-1/2',
-	color: 'bg-overlay'
+	width: 'w-5/6',
+	height: 'h-3/6',
+	color: 'bg-primary'
 };
 
 export { HOMEPAGE_HERO_CONTAINER_PROPS };
