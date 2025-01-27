@@ -18,10 +18,10 @@
 
 		<FlexContainer vertical={false} align={'end'}>
 			<FlexContainer vertical={false} justify={'center'}>
-				<GameCard text={''} color={Color.NEUTRAL} ></GameCard>
-				<GameCard text={''} color={Color.NEUTRAL} ></GameCard>
-				<GameCard text={''} color={Color.NEUTRAL} ></GameCard>
-				<GameCard text={''} color={Color.NEUTRAL} ></GameCard>
+				<GameCard text={''} color={Color.NEUTRAL}></GameCard>
+				<GameCard text={''} color={Color.NEUTRAL}></GameCard>
+				<GameCard text={''} color={Color.NEUTRAL}></GameCard>
+				<GameCard text={''} color={Color.NEUTRAL}></GameCard>
 				<GameCard text={'0'} color={Color.NEUTRAL} locked={true}></GameCard>
 			</FlexContainer>
 

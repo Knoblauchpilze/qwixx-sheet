@@ -11,6 +11,7 @@
 
 	const handleClick = () => {
 		locked = !locked;
+		return locked;
 	};
 </script>
 
