@@ -27,7 +27,7 @@ export default {
 
 				// Miscellaneous
 				overlay: '#0005'
-			},
+			}
 		}
 	},
 
