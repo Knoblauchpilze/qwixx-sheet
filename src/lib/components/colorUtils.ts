@@ -9,6 +9,14 @@ export interface CardColor {
 
 export function cssColorsFromColor(color: Color): CardColor {
 	switch (color) {
+		case Color.NEUTRAL:
+			return {
+				textColor: 'text-white',
+				bgColor: 'bg-gray-400',
+				bgHoverColor: 'hover:bg-gray-200',
+				bgSelectedColor: 'bg-gray-600',
+				borderColor: 'border-gray-800'
+			};
 		case Color.RED:
 			return {
 				textColor: 'text-qred-dark',

@@ -7,7 +7,7 @@
 		color: Color;
 		selected?: boolean;
 		locked?: boolean;
-		onClick?: () => void;
+		onClick?: () => boolean;
 	}
 
 	let { text, color, selected = false, locked = false, onClick }: Props = $props();
@@ -21,10 +21,13 @@
 	const style = 'border-2 rounded-xl min-w-8 h-8';
 
 	const onClickInternal = () => {
-		if (onClick !== undefined) {
-			onClick();
+		if (locked !== true) {
+			if (onClick !== undefined) {
+				selected = onClick();
+			} else {
+				selected = !selected;
+			}
 		}
-		selected = !selected;
 	};
 </script>
 
