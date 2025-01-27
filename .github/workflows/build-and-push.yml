@@ -47,6 +47,7 @@ jobs:
         uses: codecov/codecov-action@v5
         with:
           fail_ci_if_error: true
+          handle_no_reports_found: true
           files: ./coverage/coverage-final.json
           token: ${{ secrets.CODECOV_TOKEN }}
 
