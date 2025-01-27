@@ -10,15 +10,17 @@
 	}
 
 	let { digits, color }: Props = $props();
-
-	const score = 12;
 </script>
 
-<FlexContainer vertical={false} styling={'space-x-1'}>
-	{#each digits as digit}
-		<GameCard text={'' + digit} {color} />
-	{/each}
+<FlexContainer vertical={false}>
+	<FlexContainer vertical={false} styling="w-4/5 mr-4">
+		{#each digits as digit}
+			<GameCard text={'' + digit} {color} />
+		{/each}
+	</FlexContainer>
 
-	<LockCard locked={false} {color}></LockCard>
-	<GameCard text={score.toString()} {color} />
+	<FlexContainer vertical={false} styling="w-1/5 ml-4 space-x-2">
+		<LockCard locked={false} {color}></LockCard>
+		<GameCard text={'0'} {color} />
+	</FlexContainer>
 </FlexContainer>
