@@ -18,7 +18,7 @@
 	const bgHoverColor = $derived(selected || locked ? '' : palette.bgHoverColor);
 	const borderColor = $derived(palette.borderColor);
 
-	const style = 'border-2 rounded-xl min-w-8 h-8';
+	const style = 'font-bold text-xl border-2 rounded-xl min-w-14 h-14';
 
 	const onClickInternal = () => {
 		if (locked !== true) {
@@ -31,6 +31,6 @@
 </script>
 
 <button
-	class="font-bold {palette.textColor} {bgColor} {borderColor} {bgHoverColor} {style}"
+	class="{palette.textColor} {bgColor} {borderColor} {bgHoverColor} {style}"
 	onclick={onClickInternal}>{text}</button
 >
