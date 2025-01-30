@@ -1,3 +1,34 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@import 'tailwindcss';
+
+@source '../../node_modules/@totocorpsoftwareinc/frontend-toolkit/**/*.svelte';
+
+@theme {
+	--color-primary: #121212;
+	--color-primary-hover: #3f3f3f;
+	--color-primary-selected: #282828;
+	--color-secondary: #bd6ed5;
+	--color-secondary-hover: #cd8fdf;
+	--color-accent: #575757;
+	--color-enabled: #2a7a0c;
+	--color-enabled-hover: #45d90f;
+	--color-disabled: #751c0d;
+	--color-disabled-hover: #d92d0f;
+	--color-error: #d92d0f;
+	--color-overlay: #0005;
+	--color-qred-bright: #d95d4a;
+	--color-qred-light: #ad3a28;
+	--color-qred-medium: #852415;
+	--color-qred-dark: #631509;
+	--color-qyellow-bright: #deda52;
+	--color-qyellow-light: #bdb931;
+	--color-qyellow-medium: #ada926;
+	--color-qyellow-dark: #807c0f;
+	--color-qgreen-bright: #6bcf81;
+	--color-qgreen-light: #2f9446;
+	--color-qgreen-medium: #19692b;
+	--color-qgreen-dark: #0b521b;
+	--color-qblue-bright: #6a7fde;
+	--color-qblue-light: #364ebf;
+	--color-qblue-medium: #1b2f8c;
+	--color-qblue-dark: #0d1c63;
+}
