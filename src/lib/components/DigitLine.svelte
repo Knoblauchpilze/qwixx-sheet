@@ -12,20 +12,30 @@
 
 	let { line, color }: Props = $props();
 
-	const digits = $derived(line.digits);
-	const locked = $derived(line.locked);
-	const score = $derived(line.score());
+	// https://svelte.dev/docs/svelte/$state
+	let score = $state(0);
+
+	function onDigitClicked(digitIndex: number, ticked: boolean) {
+		line.digits.at(digitIndex)?.check(ticked);
+		score = line.score();
+	}
 </script>
 
 <FlexContainer vertical={false}>
 	<FlexContainer vertical={false} styling="w-4/5 mr-4">
-		{#each digits as digit}
-			<GameCard text={'' + digit.value} {color} />
+		{#each line.digits as digit, index}
+			<GameCard
+				text={'' + digit.value}
+				{color}
+				onClick={(ticked: boolean) => {
+					onDigitClicked(index, ticked);
+				}}
+			/>
 		{/each}
 	</FlexContainer>
 
 	<FlexContainer vertical={false} styling="w-1/5 ml-4 space-x-2">
-		<LockCard {locked} {color}></LockCard>
+		<LockCard locked={line.locked} {color}></LockCard>
 		<GameCard text={score.toString()} {color} locked={true} />
 	</FlexContainer>
 </FlexContainer>

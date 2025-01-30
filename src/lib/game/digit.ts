@@ -6,14 +6,6 @@ export class Digit {
 		this.value = value;
 	}
 
-	public tick() {
-		this.check(true);
-	}
-
-	public untick() {
-		this.check(false);
-	}
-
 	public check(tick: boolean) {
 		this.selected = tick;
 	}

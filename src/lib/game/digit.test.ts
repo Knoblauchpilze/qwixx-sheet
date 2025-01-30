@@ -14,21 +14,6 @@ describe.concurrent('Creating digit', () => {
 });
 
 describe.concurrent('Manipulating digit', () => {
-	it('should set ticked flag correctly', () => {
-		const actual = new Digit(12);
-		actual.tick();
-		expect(actual.selected).toBe(true);
-
-		actual.tick();
-		expect(actual.selected).toBe(true);
-
-		actual.untick();
-		expect(actual.selected).toBe(false);
-
-		actual.untick();
-		expect(actual.selected).toBe(false);
-	});
-
 	it('should set ticked flag correctly when checking', () => {
 		const actual = new Digit(12);
 		actual.check(true);
