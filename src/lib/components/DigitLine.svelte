@@ -14,7 +14,7 @@
 
 	const digits = $derived(line.digits);
 	const locked = $derived(line.locked);
-	const score = $derived(line.score);
+	const score = $derived(line.score());
 </script>
 
 <FlexContainer vertical={false}>
