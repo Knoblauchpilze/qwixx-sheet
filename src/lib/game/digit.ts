@@ -21,7 +21,6 @@ export class Digit {
 
 export function generateAscendingLine(): Digit[] {
 	const out: Digit[] = [];
-	out.push(new Digit(1));
 	out.push(new Digit(2));
 	out.push(new Digit(3));
 	out.push(new Digit(4));

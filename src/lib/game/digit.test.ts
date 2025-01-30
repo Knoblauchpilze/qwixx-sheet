@@ -40,20 +40,27 @@ describe.concurrent('Manipulating digit', () => {
 });
 
 describe.concurrent('Generating digits', () => {
-	it('should generate 12 ascending digits', () => {
+	it('should generate 11 ascending digits', () => {
 		const actual = generateAscendingLine();
-		expect(actual.length).toBe(12);
+		expect(actual.length).toBe(11);
 	});
 
-	it('should generate 12 descending digits', () => {
+	it('should generate 11 descending digits', () => {
 		const actual = generateDescendingLine();
-		expect(actual.length).toBe(12);
+		expect(actual.length).toBe(11);
 	});
 
 	it('should generate ascending digits in order', () => {
 		const actual = generateAscendingLine();
 
-		const EXPECTED_VALUES = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+		const EXPECTED_VALUES = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+		actual.forEach((d, id) => expect(d.value).toBe(EXPECTED_VALUES[id]));
+	});
+
+	it('should generate descending digits in order', () => {
+		const actual = generateDescendingLine();
+
+		const EXPECTED_VALUES = [12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2];
 		actual.forEach((d, id) => expect(d.value).toBe(EXPECTED_VALUES[id]));
 	});
 
