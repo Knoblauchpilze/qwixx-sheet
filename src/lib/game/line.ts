@@ -2,18 +2,9 @@ import type { Digit } from './digit';
 
 export class DigitLine {
 	digits: Digit[];
-	locked: boolean = false;
 
 	constructor(digits: Digit[]) {
 		this.digits = digits;
-	}
-
-	public lock() {
-		this.locked = true;
-	}
-
-	public unlock() {
-		this.locked = false;
 	}
 
 	public score(): number {

@@ -14,10 +14,15 @@
 
 	// https://svelte.dev/docs/svelte/$state
 	let score = $state(0);
+	let locked = $state(false);
 
 	function onDigitClicked(digitIndex: number, ticked: boolean) {
 		line.digits.at(digitIndex)?.check(ticked);
 		score = line.score();
+	}
+
+	function onLineLocked(ticked: boolean) {
+		locked = ticked;
 	}
 </script>
 
@@ -27,6 +32,7 @@
 			<GameCard
 				text={'' + digit.value}
 				{color}
+				{locked}
 				onClick={(ticked: boolean) => {
 					onDigitClicked(index, ticked);
 				}}
@@ -35,7 +41,7 @@
 	</FlexContainer>
 
 	<FlexContainer vertical={false} styling="w-1/5 ml-4 space-x-2">
-		<LockCard locked={line.locked} {color}></LockCard>
+		<LockCard {locked} {color} onClick={onLineLocked}></LockCard>
 		<GameCard text={score.toString()} {color} locked={true} />
 	</FlexContainer>
 </FlexContainer>

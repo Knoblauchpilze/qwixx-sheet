@@ -5,13 +5,16 @@
 	interface Props {
 		locked: boolean;
 		color: Color;
+		onClick?: (ticked: boolean) => void;
 	}
 
-	let { locked, color }: Props = $props();
+	let { locked, color, onClick }: Props = $props();
 
 	const handleClick = () => {
 		locked = !locked;
-		return locked;
+		if (onClick !== undefined) {
+			onClick(locked);
+		}
 	};
 </script>
 
