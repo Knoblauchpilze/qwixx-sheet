@@ -15,12 +15,10 @@
 
 	let { color, line, locked, onClick }: Props = $props();
 
-	// https://svelte.dev/docs/svelte/$state
-	let score = $state(0);
+	let score = $derived(calculateLineScore(line));
 
 	function onDigitClicked(digitIndex: number, ticked: boolean): boolean {
 		const out = checkDigit(line, digitIndex, ticked);
-		score = calculateLineScore(line);
 		if (onClick !== undefined) {
 			onClick(ticked);
 		}
