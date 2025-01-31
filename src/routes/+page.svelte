@@ -4,7 +4,12 @@
 	import PenaltyCard from '$lib/components/PenaltyCard.svelte';
 	import { Color } from '$lib/enums/color';
 	import { Qwixx } from '$lib/game/qwixx';
-	import { FlexContainer, StyledButton, StyledTitle } from '@totocorpsoftwareinc/frontend-toolkit';
+	import {
+		FlexContainer,
+		StyledButton,
+		StyledText,
+		StyledTitle
+	} from '@totocorpsoftwareinc/frontend-toolkit';
 
 	const game = $state(new Qwixx());
 
@@ -53,6 +58,7 @@
 			</FlexContainer>
 
 			<FlexContainer vertical={false} justify={'center'}>
+				<StyledText text="Score:" styling={'m-4'}></StyledText>
 				<GameCard text={score.toString()} color={Color.NEUTRAL} locked={true}></GameCard>
 			</FlexContainer>
 		</FlexContainer>
