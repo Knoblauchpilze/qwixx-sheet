@@ -12,6 +12,7 @@
 		StyledTitle
 	} from '@totocorpsoftwareinc/frontend-toolkit';
 
+	// https://svelte.dev/docs/svelte/$state
 	let reds = $state(generateAscendingLine());
 	let yellows = $state(generateAscendingLine());
 	let greens = $state(generateDescendingLine());
