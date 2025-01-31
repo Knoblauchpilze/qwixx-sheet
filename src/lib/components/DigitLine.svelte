@@ -39,6 +39,7 @@
 			<GameCard
 				text={'' + digit.value}
 				{color}
+				selected={digit.selected}
 				{locked}
 				onClick={(ticked: boolean): boolean => {
 					return onDigitClicked(index, ticked);
