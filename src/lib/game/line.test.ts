@@ -53,6 +53,140 @@ describe.concurrent('Manipulating line', () => {
 	});
 });
 
+describe.concurrent('Manupulating digits', () => {
+	const SAMPLE_DIGITS = [new Digit(1), new Digit(2)];
+
+	it('should disregard invalid indices', () => {
+		const line = new DigitLine(SAMPLE_DIGITS);
+
+		line.check(-2, true);
+		let actual = line.digits.findIndex((d) => d.selected === true);
+		expect(actual).toBe(-1);
+
+		line.check(26, true);
+		actual = line.digits.findIndex((d) => d.selected === true);
+		expect(actual).toBe(-1);
+	});
+
+	it('should tick digit when allowed', () => {
+		const line = new DigitLine(SAMPLE_DIGITS);
+		line.check(0, true);
+		expect(line.digits.at(0)?.selected).toBe(true);
+		expect(line.digits.at(1)?.selected).toBe(false);
+	});
+
+	it('should return true when tick is successful', () => {
+		const line = new DigitLine(SAMPLE_DIGITS);
+		const actual = line.check(0, true);
+		expect(actual).toBe(true);
+	});
+
+	it('should return false when tick is not successful', () => {
+		const line = new DigitLine(SAMPLE_DIGITS);
+
+		let actual = line.check(-1, true);
+		expect(actual).toBe(false);
+
+		actual = line.check(6, true);
+		expect(actual).toBe(false);
+
+		actual = line.check(1, true);
+		expect(actual).toBe(false);
+	});
+
+	it('when ticking multiple times should keep the digit ticked', () => {
+		const line = new DigitLine(SAMPLE_DIGITS);
+		line.check(0, true);
+		expect(line.digits.at(0)?.selected).toBe(true);
+
+		line.check(0, true);
+		expect(line.digits.at(0)?.selected).toBe(true);
+	});
+
+	it('should untick digit when allowed', () => {
+		const line = new DigitLine(SAMPLE_DIGITS);
+		line.check(0, true);
+
+		line.check(0, false);
+		expect(line.digits.at(0)?.selected).toBe(false);
+		expect(line.digits.at(1)?.selected).toBe(false);
+	});
+
+	it('should return false when untick is successful', () => {
+		const line = new DigitLine(SAMPLE_DIGITS);
+		const actual = line.check(0, false);
+		expect(actual).toBe(false);
+	});
+
+	it('should return false when untick is not successful', () => {
+		const line = new DigitLine(SAMPLE_DIGITS);
+
+		let actual = line.check(-1, false);
+		expect(actual).toBe(false);
+
+		actual = line.check(6, false);
+		expect(actual).toBe(false);
+	});
+
+	it('when unticking multiple times should keep the digit unticked', () => {
+		const line = new DigitLine(SAMPLE_DIGITS);
+		line.check(0, true);
+
+		line.check(0, false);
+		expect(line.digits.at(0)?.selected).toBe(false);
+
+		line.check(0, false);
+		expect(line.digits.at(0)?.selected).toBe(false);
+	});
+
+	it('should prevent ticking last digit when not enough digits are ticked', () => {
+		const line = new DigitLine(generateAscendingLine());
+
+		const actual = line.check(10, true);
+		expect(actual).toBe(false);
+	});
+
+	it('should allow ticking last digit when enough digits are ticked', () => {
+		const line = new DigitLine(generateAscendingLine());
+
+		line.check(0, true);
+		line.check(4, true);
+		line.check(7, true);
+		line.check(1, true);
+
+		let actual = line.check(10, true);
+		expect(actual).toBe(false);
+
+		line.check(2, true);
+
+		actual = line.check(10, true);
+		expect(actual).toBe(true);
+	});
+
+	it('should allow unticking last digit even when not enough digits are ticked anymore', () => {
+		const line = new DigitLine(generateAscendingLine());
+
+		line.check(0, true);
+		line.check(4, true);
+		line.check(7, true);
+		line.check(1, true);
+
+		let actual = line.check(10, true);
+		expect(actual).toBe(false);
+
+		line.check(2, true);
+
+		actual = line.check(10, true);
+		expect(actual).toBe(true);
+
+		line.check(6, false);
+
+		actual = line.check(10, false);
+		expect(actual).toBe(false);
+		expect(line.digits.at(10)?.selected).toBe(false);
+	});
+});
+
 describe.concurrent('Calculating score', () => {
 	it('with 0 digits ticked', () => {
 		const actual = new DigitLine(generateAscendingLine());

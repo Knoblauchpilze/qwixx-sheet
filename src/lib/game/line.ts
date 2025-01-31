@@ -7,9 +7,31 @@ export class DigitLine {
 		this.digits = digits;
 	}
 
-	public score(): number {
-		const count = this.digits.reduce((sum, digit) => (digit.selected ? sum + 1 : sum), 0);
+	private countTickedDigits(): number {
+		return this.digits.reduce((sum, digit) => (digit.selected ? sum + 1 : sum), 0);
+	}
 
+	public check(index: number, ticked: boolean): boolean {
+		if (index < 0 || index >= this.digits.length) {
+			return false;
+		}
+
+		if (ticked && index === this.digits.length - 1) {
+			const MINIMUM_DIGIT_TO_TICK_LAST_ONE = 5;
+			if (this.countTickedDigits() < MINIMUM_DIGIT_TO_TICK_LAST_ONE) {
+				return false;
+			}
+		}
+
+		this.digits.at(index)?.check(ticked);
+		return ticked;
+	}
+
+	public score(): number {
+		const count = this.countTickedDigits();
+
+		// TODO: it seems there's a bonus equal to the amount of digits
+		// ticked plus one.
 		switch (count) {
 			case 1:
 				return 1;

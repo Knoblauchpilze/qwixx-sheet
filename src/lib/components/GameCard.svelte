@@ -7,7 +7,7 @@
 		color: Color;
 		selected?: boolean;
 		locked?: boolean;
-		onClick?: (ticked: boolean) => void;
+		onClick?: (ticked: boolean) => boolean;
 	}
 
 	let { text, color, selected = false, locked = false, onClick }: Props = $props();
@@ -24,7 +24,7 @@
 		if (locked !== true) {
 			selected = !selected;
 			if (onClick !== undefined) {
-				onClick(selected);
+				selected = onClick(selected);
 			}
 		}
 	};

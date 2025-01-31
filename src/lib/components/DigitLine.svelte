@@ -17,12 +17,14 @@
 	let score = $state(0);
 	let locked = $state(false);
 
-	function onDigitClicked(digitIndex: number, ticked: boolean) {
-		line.digits.at(digitIndex)?.check(ticked);
+	function onDigitClicked(digitIndex: number, ticked: boolean): boolean {
+		const out = line.check(digitIndex, ticked);
 		score = line.score();
 		if (onClick !== undefined) {
 			onClick(ticked);
 		}
+
+		return out;
 	}
 
 	function onLineLocked(ticked: boolean) {
@@ -37,8 +39,8 @@
 				text={'' + digit.value}
 				{color}
 				{locked}
-				onClick={(ticked: boolean) => {
-					onDigitClicked(index, ticked);
+				onClick={(ticked: boolean): boolean => {
+					return onDigitClicked(index, ticked);
 				}}
 			/>
 		{/each}
