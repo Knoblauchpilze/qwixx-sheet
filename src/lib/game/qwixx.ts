@@ -1,54 +1,28 @@
-import { generateAscendingLine, generateDescendingLine } from './digit';
-import { calculateScore, newDigitLine, type DigitLine } from './line';
+import { calculateLineScore, type DigitLine } from './line';
 
-export class Qwixx {
+export interface Qwixx {
 	reds: DigitLine;
 	yellows: DigitLine;
 	greens: DigitLine;
 	blues: DigitLine;
 
-	penalties: number = 0;
+	penalties: number;
+}
 
-	constructor() {
-		this.reds = newDigitLine(generateAscendingLine());
-		this.yellows = newDigitLine(generateAscendingLine());
-		this.greens = newDigitLine(generateDescendingLine());
-		this.blues = newDigitLine(generateDescendingLine());
+export function calculateScore(qwixx: Qwixx): number {
+	const positive =
+		calculateLineScore(qwixx.reds) +
+		calculateLineScore(qwixx.yellows) +
+		calculateLineScore(qwixx.greens) +
+		calculateLineScore(qwixx.blues);
+	return positive + calculatePenaltyScore(qwixx);
+}
+
+export function calculatePenaltyScore(qwixx: Qwixx): number {
+	if (qwixx.penalties === 0) {
+		return 0;
 	}
 
-	public addPenalty() {
-		++this.penalties;
-		if (this.penalties > 4) {
-			this.penalties = 4;
-		}
-	}
-
-	public removePenalty() {
-		--this.penalties;
-		if (this.penalties < 0) {
-			this.penalties = 0;
-		}
-	}
-
-	public clearPenalties() {
-		this.penalties = 0;
-	}
-
-	public score(): number {
-		const positive =
-			calculateScore(this.reds) +
-			calculateScore(this.yellows) +
-			calculateScore(this.greens) +
-			calculateScore(this.blues);
-		return positive + this.penaltyScore();
-	}
-
-	public penaltyScore(): number {
-		if (this.penalties === 0) {
-			return 0;
-		}
-
-		const PENALTY = -5;
-		return this.penalties * PENALTY;
-	}
+	const PENALTY = -5;
+	return qwixx.penalties * PENALTY;
 }
