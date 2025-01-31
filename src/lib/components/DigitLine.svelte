@@ -3,7 +3,7 @@
 	import { FlexContainer } from '@totocorpsoftwareinc/frontend-toolkit';
 	import GameCard from './GameCard.svelte';
 	import LockCard from './LockCard.svelte';
-	import type { DigitLine } from '$lib/game/line';
+	import { calculateScore, checkDigit, type DigitLine } from '$lib/game/line';
 
 	interface Props {
 		line: DigitLine;
@@ -18,8 +18,8 @@
 	let locked = $state(false);
 
 	function onDigitClicked(digitIndex: number, ticked: boolean): boolean {
-		const out = line.check(digitIndex, ticked);
-		score = line.score();
+		const out = checkDigit(line, digitIndex, ticked);
+		score = calculateScore(line);
 		if (onClick !== undefined) {
 			onClick(ticked);
 		}

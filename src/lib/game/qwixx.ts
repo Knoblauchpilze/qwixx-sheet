@@ -1,5 +1,5 @@
 import { generateAscendingLine, generateDescendingLine } from './digit';
-import { DigitLine } from './line';
+import { calculateScore, newDigitLine, type DigitLine } from './line';
 
 export class Qwixx {
 	reds: DigitLine;
@@ -10,10 +10,10 @@ export class Qwixx {
 	penalties: number = 0;
 
 	constructor() {
-		this.reds = new DigitLine(generateAscendingLine());
-		this.yellows = new DigitLine(generateAscendingLine());
-		this.greens = new DigitLine(generateDescendingLine());
-		this.blues = new DigitLine(generateDescendingLine());
+		this.reds = newDigitLine(generateAscendingLine());
+		this.yellows = newDigitLine(generateAscendingLine());
+		this.greens = newDigitLine(generateDescendingLine());
+		this.blues = newDigitLine(generateDescendingLine());
 	}
 
 	public addPenalty() {
@@ -36,7 +36,10 @@ export class Qwixx {
 
 	public score(): number {
 		const positive =
-			this.reds.score() + this.yellows.score() + this.greens.score() + this.blues.score();
+			calculateScore(this.reds) +
+			calculateScore(this.yellows) +
+			calculateScore(this.greens) +
+			calculateScore(this.blues);
 		return positive + this.penaltyScore();
 	}
 
