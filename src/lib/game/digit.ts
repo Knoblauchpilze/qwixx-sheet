@@ -1,29 +1,28 @@
-export class Digit {
+export interface Digit {
 	readonly value: number;
-	selected: boolean = false;
+	selected: boolean;
+}
 
-	constructor(value: number) {
-		this.value = value;
-	}
-
-	public check(tick: boolean) {
-		this.selected = tick;
-	}
+export function newDigit(value: number): Digit {
+	return {
+		value: value,
+		selected: false
+	};
 }
 
 export function generateAscendingLine(): Digit[] {
 	const out: Digit[] = [];
-	out.push(new Digit(2));
-	out.push(new Digit(3));
-	out.push(new Digit(4));
-	out.push(new Digit(5));
-	out.push(new Digit(6));
-	out.push(new Digit(7));
-	out.push(new Digit(8));
-	out.push(new Digit(9));
-	out.push(new Digit(10));
-	out.push(new Digit(11));
-	out.push(new Digit(12));
+	out.push(newDigit(2));
+	out.push(newDigit(3));
+	out.push(newDigit(4));
+	out.push(newDigit(5));
+	out.push(newDigit(6));
+	out.push(newDigit(7));
+	out.push(newDigit(8));
+	out.push(newDigit(9));
+	out.push(newDigit(10));
+	out.push(newDigit(11));
+	out.push(newDigit(12));
 
 	return out;
 }

@@ -164,21 +164,21 @@ describe.concurrent('Manipulating score', () => {
 
 	it('with 1 digit ticked', () => {
 		const game = new Qwixx();
-		game.reds.digits.at(0)?.check(true);
+		game.reds.digits[0].selected = true;
 		expect(game.score()).toBe(1);
 	});
 
 	it('with 1 digit ticked in two lines', () => {
 		const game = new Qwixx();
-		game.reds.digits.at(0)?.check(true);
-		game.blues.digits.at(3)?.check(true);
+		game.reds.digits[0].selected = true;
+		game.blues.digits[3].selected = true;
 		expect(game.score()).toBe(2);
 	});
 
 	it('with 2 digits in a single line', () => {
 		const game = new Qwixx();
-		game.reds.digits.at(0)?.check(true);
-		game.reds.digits.at(3)?.check(true);
+		game.reds.digits[0].selected = true;
+		game.reds.digits[3].selected = true;
 		expect(game.score()).toBe(3);
 	});
 
@@ -190,9 +190,9 @@ describe.concurrent('Manipulating score', () => {
 
 	it('with 3 digits in two different lines and 1 penalty', () => {
 		const game = new Qwixx();
-		game.yellows.digits.at(8)?.check(true);
-		game.yellows.digits.at(7)?.check(true);
-		game.greens.digits.at(2)?.check(true);
+		game.yellows.digits[8].selected = true;
+		game.yellows.digits[7].selected = true;
+		game.greens.digits[2].selected = true;
 		game.addPenalty();
 		expect(game.score()).toBe(-1);
 	});
