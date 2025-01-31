@@ -1,20 +1,10 @@
 import type { Digit } from './digit';
 
-export interface DigitLine {
-	digits: Digit[];
+function countTickedDigits(line: Digit[]): number {
+	return line.reduce((sum, digit) => (digit.selected ? sum + 1 : sum), 0);
 }
 
-export function newDigitLine(digits: Digit[]): DigitLine {
-	return {
-		digits: digits
-	};
-}
-
-function countTickedDigits(line: DigitLine): number {
-	return line.digits.reduce((sum, digit) => (digit.selected ? sum + 1 : sum), 0);
-}
-
-export function calculateLineScore(line: DigitLine): number {
+export function calculateLineScore(line: Digit[]): number {
 	const count = countTickedDigits(line);
 
 	// TODO: it seems there's a bonus equal to the amount of digits
@@ -47,18 +37,18 @@ export function calculateLineScore(line: DigitLine): number {
 	}
 }
 
-export function checkDigit(line: DigitLine, index: number, ticked: boolean): boolean {
-	if (index < 0 || index >= line.digits.length) {
+export function checkDigit(line: Digit[], index: number, ticked: boolean): boolean {
+	if (index < 0 || index >= line.length) {
 		return false;
 	}
 
-	if (ticked && index === line.digits.length - 1) {
+	if (ticked && index === line.length - 1) {
 		const MINIMUM_DIGIT_TO_TICK_LAST_ONE = 5;
 		if (countTickedDigits(line) < MINIMUM_DIGIT_TO_TICK_LAST_ONE) {
 			return false;
 		}
 	}
 
-	line.digits[index].selected = ticked;
+	line[index].selected = ticked;
 	return ticked;
 }

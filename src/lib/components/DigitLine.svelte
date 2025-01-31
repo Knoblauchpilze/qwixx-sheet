@@ -3,19 +3,20 @@
 	import { FlexContainer } from '@totocorpsoftwareinc/frontend-toolkit';
 	import GameCard from './GameCard.svelte';
 	import LockCard from './LockCard.svelte';
-	import { calculateLineScore, checkDigit, type DigitLine } from '$lib/game/line';
+	import { calculateLineScore, checkDigit } from '$lib/game/line';
+	import type { Digit } from '$lib/game/digit';
 
 	interface Props {
-		line: DigitLine;
 		color: Color;
+		line: Digit[];
+		locked: boolean;
 		onClick?: (ticked: boolean) => void;
 	}
 
-	let { line, color, onClick }: Props = $props();
+	let { color, line, locked, onClick }: Props = $props();
 
 	// https://svelte.dev/docs/svelte/$state
 	let score = $state(0);
-	let locked = $state(false);
 
 	function onDigitClicked(digitIndex: number, ticked: boolean): boolean {
 		const out = checkDigit(line, digitIndex, ticked);
@@ -34,7 +35,7 @@
 
 <FlexContainer vertical={false}>
 	<FlexContainer vertical={false} styling="w-4/5 mr-4">
-		{#each line.digits as digit, index}
+		{#each line as digit, index}
 			<GameCard
 				text={'' + digit.value}
 				{color}
