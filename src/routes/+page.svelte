@@ -3,7 +3,9 @@
 	import GameCard from '$lib/components/GameCard.svelte';
 	import PenaltyCard from '$lib/components/PenaltyCard.svelte';
 	import { Color } from '$lib/enums/color';
-	import { Qwixx } from '$lib/game/qwixx';
+	import { generateAscendingLine, generateDescendingLine } from '$lib/game/digit';
+	import { newDigitLine } from '$lib/game/line';
+	import { calculatePenaltyScore, calculateScore } from '../lib/game/qwixx';
 	import {
 		FlexContainer,
 		StyledButton,
@@ -11,27 +13,48 @@
 		StyledTitle
 	} from '@totocorpsoftwareinc/frontend-toolkit';
 
-	const game = $state(new Qwixx());
+	let game = $state({
+		reds: newDigitLine(generateAscendingLine()),
+		yellows: newDigitLine(generateAscendingLine()),
+		greens: newDigitLine(generateDescendingLine()),
+		blues: newDigitLine(generateDescendingLine()),
+
+		penalties: 0
+	});
 
 	let score = $state(0);
 	let penaltyScore = $state(0);
 
 	function onDigitClicked() {
-		score = game.score();
+		score = calculateScore(game);
 	}
 
 	function onPenaltyClicked(ticked: boolean) {
 		if (ticked) {
-			game.addPenalty();
+			++game.penalties;
+			if (game.penalties > 4) {
+				game.penalties = 4;
+			}
 		} else {
-			game.removePenalty();
+			--game.penalties;
+			if (game.penalties < 0) {
+				game.penalties = 0;
+			}
 		}
 
-		penaltyScore = game.penaltyScore();
-		score = game.score();
+		penaltyScore = calculatePenaltyScore(game);
+		score = calculateScore(game);
 	}
 
 	function onReset() {
+		game = {
+			reds: newDigitLine(generateAscendingLine()),
+			yellows: newDigitLine(generateAscendingLine()),
+			greens: newDigitLine(generateDescendingLine()),
+			blues: newDigitLine(generateDescendingLine()),
+
+			penalties: 0
+		};
 		console.log('reset');
 	}
 </script>

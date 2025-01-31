@@ -14,7 +14,7 @@ function countTickedDigits(line: DigitLine): number {
 	return line.digits.reduce((sum, digit) => (digit.selected ? sum + 1 : sum), 0);
 }
 
-export function calculateScore(line: DigitLine): number {
+export function calculateLineScore(line: DigitLine): number {
 	const count = countTickedDigits(line);
 
 	// TODO: it seems there's a bonus equal to the amount of digits

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { calculateScore, checkDigit, newDigitLine } from './line';
+import { calculateLineScore, checkDigit, newDigitLine } from './line';
 import { newDigit, generateAscendingLine, generateDescendingLine } from './digit';
 
 describe.concurrent('Creating line', () => {
@@ -13,42 +13,42 @@ describe.concurrent('Creating line', () => {
 describe.concurrent('Manipulating line', () => {
 	it('ticking digit should update score', () => {
 		const line = newDigitLine(generateAscendingLine());
-		expect(calculateScore(line)).toBe(0);
+		expect(calculateLineScore(line)).toBe(0);
 
 		line.digits[1].selected = true;
-		expect(calculateScore(line)).toBe(1);
+		expect(calculateLineScore(line)).toBe(1);
 	});
 
 	it('ticking already ticked digit should not update score', () => {
 		const line = newDigitLine(generateAscendingLine());
-		expect(calculateScore(line)).toBe(0);
+		expect(calculateLineScore(line)).toBe(0);
 
 		line.digits[1].selected = true;
-		expect(calculateScore(line)).toBe(1);
+		expect(calculateLineScore(line)).toBe(1);
 
 		line.digits[1].selected = true;
-		expect(calculateScore(line)).toBe(1);
+		expect(calculateLineScore(line)).toBe(1);
 	});
 
 	it('unticking digit should update score', () => {
 		const line = newDigitLine(generateAscendingLine());
 		line.digits[1].selected = true;
-		expect(calculateScore(line)).toBe(1);
+		expect(calculateLineScore(line)).toBe(1);
 
 		line.digits[1].selected = false;
-		expect(calculateScore(line)).toBe(0);
+		expect(calculateLineScore(line)).toBe(0);
 	});
 
 	it('unticking already unticked digit should not update score', () => {
 		const line = newDigitLine(generateAscendingLine());
 		line.digits[1].selected = true;
-		expect(calculateScore(line)).toBe(1);
+		expect(calculateLineScore(line)).toBe(1);
 
 		line.digits[1].selected = false;
-		expect(calculateScore(line)).toBe(0);
+		expect(calculateLineScore(line)).toBe(0);
 
 		line.digits[1].selected = false;
-		expect(calculateScore(line)).toBe(0);
+		expect(calculateLineScore(line)).toBe(0);
 	});
 });
 
@@ -189,14 +189,14 @@ describe.concurrent('Manupulating digits', () => {
 describe.concurrent('Calculating score', () => {
 	it('with 0 digits ticked', () => {
 		const line = newDigitLine(generateAscendingLine());
-		expect(calculateScore(line)).toBe(0);
+		expect(calculateLineScore(line)).toBe(0);
 	});
 
 	it('with 1 digit ticked', () => {
 		const line = newDigitLine(generateAscendingLine());
 		line.digits[0].selected = true;
 
-		expect(calculateScore(line)).toBe(1);
+		expect(calculateLineScore(line)).toBe(1);
 	});
 
 	it('with 2 digits ticked', () => {
@@ -204,7 +204,7 @@ describe.concurrent('Calculating score', () => {
 		line.digits[0].selected = true;
 		line.digits[2].selected = true;
 
-		expect(calculateScore(line)).toBe(3);
+		expect(calculateLineScore(line)).toBe(3);
 	});
 
 	it('with 3 digits ticked', () => {
@@ -213,7 +213,7 @@ describe.concurrent('Calculating score', () => {
 		line.digits[3].selected = true;
 		line.digits[5].selected = true;
 
-		expect(calculateScore(line)).toBe(6);
+		expect(calculateLineScore(line)).toBe(6);
 	});
 
 	it('with 4 digits ticked', () => {
@@ -223,7 +223,7 @@ describe.concurrent('Calculating score', () => {
 		line.digits[2].selected = true;
 		line.digits[3].selected = true;
 
-		expect(calculateScore(line)).toBe(10);
+		expect(calculateLineScore(line)).toBe(10);
 	});
 
 	it('with 5 digits ticked', () => {
@@ -234,7 +234,7 @@ describe.concurrent('Calculating score', () => {
 		line.digits[8].selected = true;
 		line.digits[10].selected = true;
 
-		expect(calculateScore(line)).toBe(15);
+		expect(calculateLineScore(line)).toBe(15);
 	});
 
 	it('with 6 digits ticked', () => {
@@ -246,7 +246,7 @@ describe.concurrent('Calculating score', () => {
 		line.digits[1].selected = true;
 		line.digits[0].selected = true;
 
-		expect(calculateScore(line)).toBe(21);
+		expect(calculateLineScore(line)).toBe(21);
 	});
 
 	it('with 7 digits ticked', () => {
@@ -259,7 +259,7 @@ describe.concurrent('Calculating score', () => {
 		line.digits[7].selected = true;
 		line.digits[10].selected = true;
 
-		expect(calculateScore(line)).toBe(28);
+		expect(calculateLineScore(line)).toBe(28);
 	});
 
 	it('with 8 digits ticked', () => {
@@ -273,7 +273,7 @@ describe.concurrent('Calculating score', () => {
 		line.digits[8].selected = true;
 		line.digits[10].selected = true;
 
-		expect(calculateScore(line)).toBe(36);
+		expect(calculateLineScore(line)).toBe(36);
 	});
 
 	it('with 9 digits ticked', () => {
@@ -288,7 +288,7 @@ describe.concurrent('Calculating score', () => {
 		line.digits[9].selected = true;
 		line.digits[10].selected = true;
 
-		expect(calculateScore(line)).toBe(45);
+		expect(calculateLineScore(line)).toBe(45);
 	});
 
 	it('with 10 digits ticked', () => {
@@ -304,7 +304,7 @@ describe.concurrent('Calculating score', () => {
 		line.digits[9].selected = true;
 		line.digits[10].selected = true;
 
-		expect(calculateScore(line)).toBe(55);
+		expect(calculateLineScore(line)).toBe(55);
 	});
 
 	it('with 11 digit ticked', () => {
@@ -321,6 +321,6 @@ describe.concurrent('Calculating score', () => {
 		line.digits[9].selected = true;
 		line.digits[10].selected = true;
 
-		expect(calculateScore(line)).toBe(66);
+		expect(calculateLineScore(line)).toBe(66);
 	});
 });
