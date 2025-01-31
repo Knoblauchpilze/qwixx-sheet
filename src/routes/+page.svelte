@@ -4,9 +4,10 @@
 	import PenaltyCard from '$lib/components/PenaltyCard.svelte';
 	import { Color } from '$lib/enums/color';
 	import { Qwixx } from '$lib/game/qwixx';
-	import { FlexContainer, StyledTitle } from '@totocorpsoftwareinc/frontend-toolkit';
+	import { FlexContainer, StyledButton, StyledTitle } from '@totocorpsoftwareinc/frontend-toolkit';
 
 	const game = $state(new Qwixx());
+
 	let score = $state(0);
 	let penaltyScore = $state(0);
 
@@ -24,10 +25,18 @@
 		penaltyScore = game.penaltyScore();
 		score = game.score();
 	}
+
+	function onReset() {
+		console.log('reset');
+	}
 </script>
 
 <FlexContainer align={'stretch'} styling={'border-2 rounded-xl border-accent'}>
-	<StyledTitle text="Qwixx sheet" />
+	<FlexContainer vertical={false} extensible={false}>
+		<StyledTitle text="Qwixx sheet" />
+		<StyledButton text="Reset" border={true} onClick={onReset}></StyledButton>
+	</FlexContainer>
+
 	<FlexContainer align={'stretch'}>
 		<DigitLine line={game.reds} color={Color.RED} onClick={onDigitClicked}></DigitLine>
 		<DigitLine line={game.yellows} color={Color.YELLOW} onClick={onDigitClicked}></DigitLine>
