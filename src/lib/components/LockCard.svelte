@@ -15,6 +15,7 @@
 		if (onClick !== undefined) {
 			onClick(locked);
 		}
+		return locked;
 	};
 </script>
 

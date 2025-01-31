@@ -10,11 +10,12 @@
 
 	let selected = $state(false);
 
-	function onClickInternal(ticked: boolean) {
+	function onClickInternal(ticked: boolean): boolean {
 		selected = ticked;
 		if (onClick !== undefined) {
 			onClick(ticked);
 		}
+		return selected;
 	}
 </script>
 
