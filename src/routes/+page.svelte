@@ -10,7 +10,7 @@
 	let score = $state(0);
 	let penaltyScore = $state(0);
 
-	function onDigitClicked(ticked: boolean) {
+	function onDigitClicked() {
 		score = game.score();
 	}
 
