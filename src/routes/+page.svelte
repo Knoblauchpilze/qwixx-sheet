@@ -10,8 +10,11 @@
 	let score = $state(0);
 	let penaltyScore = $state(0);
 
+	function onDigitClicked(ticked: boolean) {
+		score = game.score();
+	}
+
 	function onPenaltyClicked(ticked: boolean) {
-		console.log('clicked penalty: ' + ticked);
 		if (ticked) {
 			game.addPenalty();
 		} else {
@@ -26,10 +29,10 @@
 <FlexContainer align={'stretch'} styling={'border-2 rounded-xl border-accent'}>
 	<StyledTitle text="Qwixx sheet" />
 	<FlexContainer align={'stretch'}>
-		<DigitLine line={game.reds} color={Color.RED}></DigitLine>
-		<DigitLine line={game.yellows} color={Color.YELLOW}></DigitLine>
-		<DigitLine line={game.greens} color={Color.GREEN}></DigitLine>
-		<DigitLine line={game.blues} color={Color.BLUE}></DigitLine>
+		<DigitLine line={game.reds} color={Color.RED} onClick={onDigitClicked}></DigitLine>
+		<DigitLine line={game.yellows} color={Color.YELLOW} onClick={onDigitClicked}></DigitLine>
+		<DigitLine line={game.greens} color={Color.GREEN} onClick={onDigitClicked}></DigitLine>
+		<DigitLine line={game.blues} color={Color.BLUE} onClick={onDigitClicked}></DigitLine>
 
 		<FlexContainer vertical={false} align={'end'}>
 			<FlexContainer vertical={false} justify={'center'}>

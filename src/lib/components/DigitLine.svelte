@@ -8,9 +8,10 @@
 	interface Props {
 		line: DigitLine;
 		color: Color;
+		onClick?: (ticked: boolean) => void;
 	}
 
-	let { line, color }: Props = $props();
+	let { line, color, onClick }: Props = $props();
 
 	// https://svelte.dev/docs/svelte/$state
 	let score = $state(0);
@@ -19,6 +20,9 @@
 	function onDigitClicked(digitIndex: number, ticked: boolean) {
 		line.digits.at(digitIndex)?.check(ticked);
 		score = line.score();
+		if (onClick !== undefined) {
+			onClick(ticked);
+		}
 	}
 
 	function onLineLocked(ticked: boolean) {
