@@ -1,14 +1,25 @@
 <script lang="ts">
 	import DigitLine from '$lib/components/DigitLine.svelte';
 	import GameCard from '$lib/components/GameCard.svelte';
+	import PenaltyCard from '$lib/components/PenaltyCard.svelte';
 	import { Color } from '$lib/enums/color';
 	import { Qwixx } from '$lib/game/qwixx';
 	import { FlexContainer, StyledTitle } from '@totocorpsoftwareinc/frontend-toolkit';
 
-	const game = new Qwixx();
+	const game = $state(new Qwixx());
+	let score = $state(0);
+	let penaltyScore = $state(0);
 
-	function getPenaltyText(ticked: boolean): string {
-		return ticked ? 'X' : '';
+	function onPenaltyClicked(ticked: boolean) {
+		console.log('clicked penalty: ' + ticked);
+		if (ticked) {
+			game.addPenalty();
+		} else {
+			game.removePenalty();
+		}
+
+		penaltyScore = game.penaltyScore();
+		score = game.score();
 	}
 </script>
 
@@ -22,15 +33,15 @@
 
 		<FlexContainer vertical={false} align={'end'}>
 			<FlexContainer vertical={false} justify={'center'}>
-				<GameCard text={getPenaltyText(game.penalties > 0)} color={Color.NEUTRAL}></GameCard>
-				<GameCard text={getPenaltyText(game.penalties > 0)} color={Color.NEUTRAL}></GameCard>
-				<GameCard text={getPenaltyText(game.penalties > 0)} color={Color.NEUTRAL}></GameCard>
-				<GameCard text={getPenaltyText(game.penalties > 0)} color={Color.NEUTRAL}></GameCard>
-				<GameCard text={'0'} color={Color.NEUTRAL} locked={true}></GameCard>
+				<PenaltyCard onClick={onPenaltyClicked}></PenaltyCard>
+				<PenaltyCard onClick={onPenaltyClicked}></PenaltyCard>
+				<PenaltyCard onClick={onPenaltyClicked}></PenaltyCard>
+				<PenaltyCard onClick={onPenaltyClicked}></PenaltyCard>
+				<GameCard text={penaltyScore.toString()} color={Color.NEUTRAL} locked={true}></GameCard>
 			</FlexContainer>
 
 			<FlexContainer vertical={false} justify={'center'}>
-				<GameCard text={game.score.toString()} color={Color.NEUTRAL} locked={true}></GameCard>
+				<GameCard text={score.toString()} color={Color.NEUTRAL} locked={true}></GameCard>
 			</FlexContainer>
 		</FlexContainer>
 	</FlexContainer>

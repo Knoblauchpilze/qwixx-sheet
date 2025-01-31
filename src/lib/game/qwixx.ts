@@ -8,7 +8,6 @@ export class Qwixx {
 	blues: DigitLine;
 
 	penalties: number = 0;
-	score: number = 0;
 
 	constructor() {
 		this.reds = new DigitLine(generateAscendingLine());
@@ -17,19 +16,36 @@ export class Qwixx {
 		this.blues = new DigitLine(generateDescendingLine());
 	}
 
-	public getReds(): DigitLine {
-		return this.reds;
+	public addPenalty() {
+		++this.penalties;
+		if (this.penalties > 4) {
+			this.penalties = 4;
+		}
 	}
 
-	public getYellows(): DigitLine {
-		return this.yellows;
+	public removePenalty() {
+		--this.penalties;
+		if (this.penalties < 0) {
+			this.penalties = 0;
+		}
 	}
 
-	public getGreens(): DigitLine {
-		return this.greens;
+	public clearPenalties() {
+		this.penalties = 0;
 	}
 
-	public getBlues(): DigitLine {
-		return this.blues;
+	public score(): number {
+		const positive =
+			this.reds.score() + this.yellows.score() + this.greens.score() + this.blues.score();
+		return positive + this.penaltyScore();
+	}
+
+	public penaltyScore(): number {
+		if (this.penalties === 0) {
+			return 0;
+		}
+
+		const PENALTY = -5;
+		return this.penalties * PENALTY;
 	}
 }
