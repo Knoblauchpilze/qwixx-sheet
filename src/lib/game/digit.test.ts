@@ -1,26 +1,15 @@
 import { describe, expect, it } from 'vitest';
-import { Digit, generateAscendingLine, generateDescendingLine } from './digit';
+import { newDigit, generateAscendingLine, generateDescendingLine } from './digit';
 
 describe.concurrent('Creating digit', () => {
 	it('should be unticked by default', () => {
-		const actual = new Digit(12);
+		const actual = newDigit(12);
 		expect(actual.selected).toBe(false);
 	});
 
 	it('should respect provided value', () => {
-		const actual = new Digit(26);
+		const actual = newDigit(26);
 		expect(actual.value).toBe(26);
-	});
-});
-
-describe.concurrent('Manipulating digit', () => {
-	it('should set ticked flag correctly when checking', () => {
-		const actual = new Digit(12);
-		actual.check(true);
-		expect(actual.selected).toBe(true);
-
-		actual.check(false);
-		expect(actual.selected).toBe(false);
 	});
 });
 
@@ -51,13 +40,11 @@ describe.concurrent('Generating digits', () => {
 
 	it('should generate ascending digits unticked', () => {
 		const actual = generateAscendingLine();
-
 		actual.forEach((d) => expect(d.selected).toBe(false));
 	});
 
 	it('should generate descending digits unticked', () => {
 		const actual = generateDescendingLine();
-
 		actual.forEach((d) => expect(d.selected).toBe(false));
 	});
 });

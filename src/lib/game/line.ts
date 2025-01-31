@@ -23,7 +23,7 @@ export class DigitLine {
 			}
 		}
 
-		this.digits.at(index)?.check(ticked);
+		this.digits[index].selected = ticked;
 		return ticked;
 	}
 
