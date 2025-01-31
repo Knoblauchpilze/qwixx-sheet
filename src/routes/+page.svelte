@@ -39,28 +39,37 @@
 <FlexContainer align={'stretch'} styling={'border-2 rounded-xl border-accent'}>
 	<FlexContainer vertical={false} extensible={false}>
 		<StyledTitle text="Qwixx sheet" />
-		<StyledButton text="Reset" border={true} onClick={onReset}></StyledButton>
 	</FlexContainer>
 
 	<FlexContainer align={'stretch'}>
-		<DigitLine line={game.reds} color={Color.RED} onClick={onDigitClicked}></DigitLine>
-		<DigitLine line={game.yellows} color={Color.YELLOW} onClick={onDigitClicked}></DigitLine>
-		<DigitLine line={game.greens} color={Color.GREEN} onClick={onDigitClicked}></DigitLine>
-		<DigitLine line={game.blues} color={Color.BLUE} onClick={onDigitClicked}></DigitLine>
+		<FlexContainer>
+			<DigitLine line={game.reds} color={Color.RED} onClick={onDigitClicked} />
+			<DigitLine line={game.yellows} color={Color.YELLOW} onClick={onDigitClicked} />
+			<DigitLine line={game.greens} color={Color.GREEN} onClick={onDigitClicked} />
+			<DigitLine line={game.blues} color={Color.BLUE} onClick={onDigitClicked} />
+		</FlexContainer>
 
-		<FlexContainer vertical={false} align={'end'}>
+		<FlexContainer vertical={false} extensible={false} align={'end'}>
 			<FlexContainer vertical={false} justify={'center'}>
-				<PenaltyCard onClick={onPenaltyClicked}></PenaltyCard>
-				<PenaltyCard onClick={onPenaltyClicked}></PenaltyCard>
-				<PenaltyCard onClick={onPenaltyClicked}></PenaltyCard>
-				<PenaltyCard onClick={onPenaltyClicked}></PenaltyCard>
-				<GameCard text={penaltyScore.toString()} color={Color.NEUTRAL} locked={true}></GameCard>
+				<PenaltyCard onClick={onPenaltyClicked} />
+				<PenaltyCard onClick={onPenaltyClicked} />
+				<PenaltyCard onClick={onPenaltyClicked} />
+				<PenaltyCard onClick={onPenaltyClicked} />
+				<GameCard text={penaltyScore.toString()} color={Color.NEUTRAL} locked={true} />
 			</FlexContainer>
 
 			<FlexContainer vertical={false} justify={'center'}>
-				<StyledText text="Score:" styling={'m-4'}></StyledText>
-				<GameCard text={score.toString()} color={Color.NEUTRAL} locked={true}></GameCard>
+				<StyledText text="Score:" styling={'m-4'} />
+				<GameCard text={score.toString()} color={Color.NEUTRAL} locked={true} />
 			</FlexContainer>
+		</FlexContainer>
+
+		<FlexContainer vertical={false} extensible={false} styling={'m-2'}>
+			<StyledButton text="Reset" border={true} onClick={onReset} />
+			<form method="POST" action="?/generate" class="flex flex-row justify-evenly">
+				<input id="seed" type="text" name="seed" placeholder="Enter a seed" class="bg-white" />
+				<StyledButton text="Generate" border={true} />
+			</form>
 		</FlexContainer>
 	</FlexContainer>
 </FlexContainer>
