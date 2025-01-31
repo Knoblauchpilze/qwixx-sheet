@@ -4,8 +4,7 @@
 	import PenaltyCard from '$lib/components/PenaltyCard.svelte';
 	import { Color } from '$lib/enums/color';
 	import { generateAscendingLine, generateDescendingLine } from '$lib/game/digit';
-	import { newDigitLine } from '$lib/game/line';
-	import { calculatePenaltyScore, calculateScore } from '../lib/game/qwixx';
+	import { calculateLineScore } from '$lib/game/line';
 	import {
 		FlexContainer,
 		StyledButton,
@@ -13,48 +12,57 @@
 		StyledTitle
 	} from '@totocorpsoftwareinc/frontend-toolkit';
 
-	let game = $state({
-		reds: newDigitLine(generateAscendingLine()),
-		yellows: newDigitLine(generateAscendingLine()),
-		greens: newDigitLine(generateDescendingLine()),
-		blues: newDigitLine(generateDescendingLine()),
+	let reds = $state(generateAscendingLine());
+	let yellows = $state(generateAscendingLine());
+	let greens = $state(generateDescendingLine());
+	let blues = $state(generateDescendingLine());
 
-		penalties: 0
-	});
+	let penalties = $state([false, false, false, false]);
+	let lockedLines = $state([false, false, false, false]);
 
 	let score = $state(0);
 	let penaltyScore = $state(0);
 
-	function onDigitClicked() {
-		score = calculateScore(game);
-	}
-
-	function onPenaltyClicked(ticked: boolean) {
-		if (ticked) {
-			++game.penalties;
-			if (game.penalties > 4) {
-				game.penalties = 4;
-			}
-		} else {
-			--game.penalties;
-			if (game.penalties < 0) {
-				game.penalties = 0;
-			}
+	function calculatePenaltyScore(): number {
+		const count = penalties.reduce((sum, penalty) => (penalty === true ? sum + 1 : sum), 0);
+		if (count === 0) {
+			return 0;
 		}
 
-		penaltyScore = calculatePenaltyScore(game);
-		score = calculateScore(game);
+		const PENALTY = -5;
+		return count * PENALTY;
+	}
+
+	function calculateScore(): number {
+		const positive =
+			calculateLineScore(reds) +
+			calculateLineScore(yellows) +
+			calculateLineScore(greens) +
+			calculateLineScore(blues);
+		return positive + calculatePenaltyScore();
+	}
+
+	function onDigitClicked() {
+		score = calculateScore();
+	}
+
+	function onPenaltyClicked(index: number, ticked: boolean) {
+		penalties[index] = ticked;
+		penaltyScore = calculatePenaltyScore();
+		score = calculateScore();
 	}
 
 	function onReset() {
-		game = {
-			reds: newDigitLine(generateAscendingLine()),
-			yellows: newDigitLine(generateAscendingLine()),
-			greens: newDigitLine(generateDescendingLine()),
-			blues: newDigitLine(generateDescendingLine()),
+		reds = generateAscendingLine();
+		yellows = generateAscendingLine();
+		greens = generateDescendingLine();
+		blues = generateDescendingLine();
 
-			penalties: 0
-		};
+		penalties = [false, false, false, false];
+		lockedLines = [false, false, false, false];
+
+		score = 0;
+		penaltyScore = 0;
 		console.log('reset');
 	}
 </script>
@@ -66,18 +74,32 @@
 
 	<FlexContainer align={'stretch'}>
 		<FlexContainer>
-			<DigitLine line={game.reds} color={Color.RED} onClick={onDigitClicked} />
-			<DigitLine line={game.yellows} color={Color.YELLOW} onClick={onDigitClicked} />
-			<DigitLine line={game.greens} color={Color.GREEN} onClick={onDigitClicked} />
-			<DigitLine line={game.blues} color={Color.BLUE} onClick={onDigitClicked} />
+			<DigitLine color={Color.RED} line={reds} locked={lockedLines[0]} onClick={onDigitClicked} />
+			<DigitLine
+				color={Color.YELLOW}
+				line={yellows}
+				locked={lockedLines[1]}
+				onClick={onDigitClicked}
+			/>
+			<DigitLine
+				color={Color.GREEN}
+				line={greens}
+				locked={lockedLines[2]}
+				onClick={onDigitClicked}
+			/>
+			<DigitLine color={Color.BLUE} line={blues} locked={lockedLines[3]} onClick={onDigitClicked} />
 		</FlexContainer>
 
 		<FlexContainer vertical={false} extensible={false} align={'end'}>
 			<FlexContainer vertical={false} justify={'center'}>
-				<PenaltyCard onClick={onPenaltyClicked} />
-				<PenaltyCard onClick={onPenaltyClicked} />
-				<PenaltyCard onClick={onPenaltyClicked} />
-				<PenaltyCard onClick={onPenaltyClicked} />
+				{#each penalties as penalty, index}
+					<PenaltyCard
+						selected={penalty}
+						onClick={(ticked: boolean) => {
+							onPenaltyClicked(index, ticked);
+						}}
+					/>
+				{/each}
 				<GameCard text={penaltyScore.toString()} color={Color.NEUTRAL} locked={true} />
 			</FlexContainer>
 

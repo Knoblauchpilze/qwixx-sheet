@@ -3,12 +3,11 @@
 	import GameCard from './GameCard.svelte';
 
 	interface Props {
+		selected: boolean;
 		onClick?: (ticked: boolean) => void;
 	}
 
-	let { onClick }: Props = $props();
-
-	let selected = $state(false);
+	let { selected, onClick }: Props = $props();
 
 	function onClickInternal(ticked: boolean): boolean {
 		selected = ticked;
