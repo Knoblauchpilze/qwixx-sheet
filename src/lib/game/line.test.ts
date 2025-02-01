@@ -141,40 +141,25 @@ describe.concurrent('Manupulating digits', () => {
 		const line = generateAscendingLine();
 
 		checkDigit(line, 0, true);
+		checkDigit(line, 1, true);
 		checkDigit(line, 4, true);
 		checkDigit(line, 7, true);
-		checkDigit(line, 1, true);
 
 		let actual = checkDigit(line, 10, true);
 		expect(actual).toBe(false);
 
-		checkDigit(line, 2, true);
+		checkDigit(line, 8, true);
 
 		actual = checkDigit(line, 10, true);
 		expect(actual).toBe(true);
 	});
 
-	it('should allow unticking last digit even when not enough digits are ticked anymore', () => {
+	it('should not allow ticking a digit when a bigger one is ticked', () => {
 		const line = generateAscendingLine();
-
-		checkDigit(line, 0, true);
-		checkDigit(line, 4, true);
-		checkDigit(line, 7, true);
-		checkDigit(line, 1, true);
-
-		let actual = checkDigit(line, 10, true);
-		expect(actual).toBe(false);
-
 		checkDigit(line, 2, true);
 
-		actual = checkDigit(line, 10, true);
-		expect(actual).toBe(true);
-
-		checkDigit(line, 6, false);
-
-		actual = checkDigit(line, 10, false);
+		const actual = checkDigit(line, 0, true);
 		expect(actual).toBe(false);
-		expect(line.at(10)?.selected).toBe(false);
 	});
 });
 
