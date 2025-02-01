@@ -37,16 +37,39 @@ export function calculateLineScore(line: Digit[]): number {
 	}
 }
 
+function isLastDigitClickedWithoutMinimumRequirement(
+	line: Digit[],
+	index: number,
+	ticked: boolean
+): boolean {
+	if (!ticked) {
+		return false;
+	}
+
+	if (index !== line.length - 1) {
+		return false;
+	}
+
+	const MINIMUM_DIGIT_TO_TICK_LAST_ONE = 5;
+	return countTickedDigits(line) < MINIMUM_DIGIT_TO_TICK_LAST_ONE;
+}
+
+function isDigitClickedWhenHigherOneAlreadyTicked(line: Digit[], index: number): boolean {
+	const lastSelected = line.findLastIndex((d) => d.selected === true);
+	return index < lastSelected;
+}
+
 export function checkDigit(line: Digit[], index: number, ticked: boolean): boolean {
 	if (index < 0 || index >= line.length) {
 		return false;
 	}
 
-	if (ticked && index === line.length - 1) {
-		const MINIMUM_DIGIT_TO_TICK_LAST_ONE = 5;
-		if (countTickedDigits(line) < MINIMUM_DIGIT_TO_TICK_LAST_ONE) {
-			return false;
-		}
+	if (isLastDigitClickedWithoutMinimumRequirement(line, index, ticked)) {
+		return false;
+	}
+
+	if (isDigitClickedWhenHigherOneAlreadyTicked(line, index)) {
+		return false;
 	}
 
 	line[index].selected = ticked;

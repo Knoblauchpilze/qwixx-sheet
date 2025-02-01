@@ -16,11 +16,16 @@
 	let { color, line, locked, onClick }: Props = $props();
 
 	let score = $derived(calculateLineScore(line));
+	let lastDigitTicked = $state(-1);
 
 	function onDigitClicked(digitIndex: number, ticked: boolean): boolean {
 		const out = checkDigit(line, digitIndex, ticked);
 		if (onClick !== undefined) {
 			onClick(ticked);
+		}
+
+		if (out) {
+			lastDigitTicked = digitIndex;
 		}
 
 		return out;
@@ -38,7 +43,7 @@
 				text={'' + digit.value}
 				{color}
 				selected={digit.selected}
-				{locked}
+				locked={locked || index < lastDigitTicked}
 				onClick={(ticked: boolean): boolean => {
 					return onDigitClicked(index, ticked);
 				}}
