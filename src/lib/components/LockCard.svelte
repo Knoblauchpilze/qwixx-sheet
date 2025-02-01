@@ -22,5 +22,5 @@
 {#if !locked}
 	<GameCard text="Lock" {color} onClick={handleClick} />
 {:else}
-	<GameCard text="Unlock" {color} onClick={handleClick} />
+	<GameCard text="Unlock" {color} selected={true} onClick={handleClick} />
 {/if}
