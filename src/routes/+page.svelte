@@ -31,6 +31,7 @@
 	let lockedLines = $state([false, false, false, false]);
 
 	let score = $state(0);
+	let bonusScore = $state(0);
 	let penaltyScore = $state(0);
 
 	function calculatePenaltyScore(): number {
@@ -42,16 +43,52 @@
 		return count * data.penaltyScore;
 	}
 
+	function calculateBonusScoreFor(digit: number): number {
+		const redId = reds.findIndex((d) => d.value == digit);
+		const yellowId = yellows.findIndex((d) => d.value == digit);
+		const greenId = greens.findIndex((d) => d.value == digit);
+		const blueId = blues.findIndex((d) => d.value == digit);
+
+		if (
+			redId === undefined ||
+			yellowId === undefined ||
+			greenId === undefined ||
+			blueId === undefined
+		) {
+			return 0;
+		}
+
+		const red = reds[redId];
+		const yellow = yellows[yellowId];
+		const green = greens[greenId];
+		const blue = blues[blueId];
+
+		if (!red.selected || !yellow.selected || !green.selected || !blue.selected) {
+			return 0;
+		}
+
+		return data.sameDigitBonus;
+	}
+
+	function calculateBonusScore(): number {
+		const digits = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+		return digits.reduce((sum, digit) => sum + calculateBonusScoreFor(digit), 0);
+	}
+
 	function calculateScore(): number {
 		const positive =
 			calculateLineScore(reds) +
 			calculateLineScore(yellows) +
 			calculateLineScore(greens) +
 			calculateLineScore(blues);
-		return positive + calculatePenaltyScore();
+		const bonus = calculateBonusScore();
+		const penalties = calculatePenaltyScore();
+
+		return positive + bonus + penalties;
 	}
 
 	function onDigitClicked() {
+		bonusScore = calculateBonusScore();
 		score = calculateScore();
 	}
 
@@ -78,6 +115,7 @@
 		lockedLines = [false, false, false, false];
 
 		score = 0;
+		bonusScore = 0;
 		penaltyScore = 0;
 	}
 </script>
@@ -133,6 +171,9 @@
 			</FlexContainer>
 
 			<FlexContainer vertical={false} justify={'center'}>
+				<StyledText text="4 digits:" styling={'m-4'} />
+				<GameCard text={bonusScore.toString()} color={Color.NEUTRAL} locked={true} />
+
 				<StyledText text="Score:" styling={'m-4'} />
 				<GameCard text={score.toString()} color={Color.NEUTRAL} locked={true} />
 			</FlexContainer>
