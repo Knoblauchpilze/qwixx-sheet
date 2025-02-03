@@ -3,6 +3,7 @@
 	import GameCard from '$lib/components/GameCard.svelte';
 	import PenaltyCard from '$lib/components/PenaltyCard.svelte';
 	import { Color } from '$lib/enums/color';
+	import { DigitLayout } from '$lib/enums/digitLayout';
 	import { calculateLineScore } from '$lib/game/line';
 	import {
 		FlexContainer,
@@ -180,10 +181,32 @@
 
 		<FlexContainer vertical={false} extensible={false} styling={'m-2'}>
 			<StyledButton text="Reset" border={true} onClick={onReset} />
-			<form method="POST" action="?/generate" class="flex flex-row justify-evenly">
-				<input id="seed" type="text" name="seed" placeholder="Enter a seed" class="bg-white" />
-				<StyledButton text="Generate" border={true} />
-			</form>
+			<FlexContainer vertical={false} extensible={false}>
+				<form method="POST" action="?/generate" class="flex flex-row justify-evenly">
+					<input class="hidden" id="layout" name="layout" value={DigitLayout.CUSTOM} />
+					<input
+						class="bg-white"
+						id="seed"
+						type="text"
+						name="seed"
+						placeholder="Enter a seed"
+						value={data.seed}
+					/>
+					<StyledButton text="Generate" border={true} />
+				</form>
+				<form method="POST" action="?/generate" class="flex flex-row justify-evenly">
+					<input class="hidden" id="layout" name="layout" value={DigitLayout.CLASSIC} />
+					<input
+						class="hidden bg-white"
+						id="seed"
+						type="text"
+						name="seed"
+						placeholder="Enter a seed"
+						value={data.seed}
+					/>
+					<StyledButton text="Classic" border={true} />
+				</form>
+			</FlexContainer>
 		</FlexContainer>
 	</FlexContainer>
 </FlexContainer>
