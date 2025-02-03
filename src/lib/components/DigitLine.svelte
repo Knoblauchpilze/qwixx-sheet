@@ -15,6 +15,7 @@
 
 	let { color, line, locked, onClick }: Props = $props();
 
+	let automaticallyLocked = $state(false);
 	let score = $derived(calculateLineScore(line));
 	let lastDigitsTicked: number[] = $state([]);
 
@@ -26,9 +27,18 @@
 
 		if (out) {
 			lastDigitsTicked.push(digitIndex);
+			if (isLastDigit(digitIndex)) {
+				automaticallyLocked = true;
+				locked = true;
+			}
 		}
-		if (!out && lastDigitsTicked.length > 0 && digitIndex === lastDigitsTicked.at(-1)) {
-			lastDigitsTicked.pop();
+		if (!out) {
+			if (isIndexEqualToLastDigitTicked(digitIndex)) {
+				lastDigitsTicked.pop();
+			}
+			if (automaticallyLocked) {
+				locked = !isLastDigit(digitIndex);
+			}
 		}
 
 		return out;
@@ -46,6 +56,29 @@
 		}
 		return digitIndex < lastTickedDigitIndex;
 	}
+
+	function isLastDigit(digitIndex: number): boolean {
+		return digitIndex === line.length - 1;
+	}
+
+	function isIndexEqualToLastDigitTicked(digitIndex: number): boolean {
+		if (lastDigitsTicked.length === 0) {
+			return false;
+		}
+
+		const lastDigitIndexTicked = lastDigitsTicked.at(-1);
+		return lastDigitIndexTicked === digitIndex;
+	}
+
+	function isDigitLocked(digitIndex: number): boolean {
+		const lockedBecauseLineIsLocked = locked;
+		const lockedBecauseBiggerDigitIsTicked = isDigitBeforeLastTicked(digitIndex);
+		const unlockedBecauseLastDigit = isLastDigit(digitIndex) && automaticallyLocked;
+
+		return (
+			(lockedBecauseLineIsLocked || lockedBecauseBiggerDigitIsTicked) && !unlockedBecauseLastDigit
+		);
+	}
 </script>
 
 <FlexContainer vertical={false}>
@@ -55,7 +88,7 @@
 				text={'' + digit.value}
 				{color}
 				selected={digit.selected}
-				locked={locked || isDigitBeforeLastTicked(index)}
+				locked={isDigitLocked(index)}
 				onClick={(ticked: boolean): boolean => {
 					return onDigitClicked(index, ticked);
 				}}
