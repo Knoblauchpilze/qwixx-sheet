@@ -171,7 +171,7 @@
 			</FlexContainer>
 
 			<FlexContainer vertical={false} justify={'center'}>
-				<StyledText text="4 digits:" styling={'m-4'} />
+				<StyledText text="4 digits bonus:" styling={'m-4'} />
 				<GameCard text={bonusScore.toString()} color={Color.NEUTRAL} locked={true} />
 
 				<StyledText text="Score:" styling={'m-4'} />
