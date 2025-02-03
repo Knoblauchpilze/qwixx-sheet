@@ -1,6 +1,9 @@
 <script lang="ts">
 	import { Color } from '$lib/enums/color';
-	import GameCard from './GameCard.svelte';
+	// https://stackoverflow.com/questions/67337435/how-to-config-for-using-svg-file-in-sveltekit
+	import PadlockLocked from '$lib/assets/padlock-locked.svg?raw';
+	import PadlockUnlocked from '$lib/assets/padlock-open.svg?raw';
+	import SvgCard from './SvgCard.svelte';
 
 	interface Props {
 		locked: boolean;
@@ -20,7 +23,14 @@
 </script>
 
 {#if !locked}
-	<GameCard text="Lock" {color} onClick={handleClick} />
+	<SvgCard {color} selected={locked} onClick={handleClick}>
+		<!-- https://sveltejs.github.io/eslint-plugin-svelte/rules/no-at-html-tags/ -->
+		<!-- In this case it's safe to disable this rule as we own the injected SVG -->
+		<!-- eslint-disable svelte/no-at-html-tags -->
+		{@html PadlockUnlocked}
+	</SvgCard>
 {:else}
-	<GameCard text="Unlock" {color} selected={true} onClick={handleClick} />
+	<SvgCard {color} selected={locked} onClick={handleClick}>
+		{@html PadlockLocked}
+	</SvgCard>
 {/if}
