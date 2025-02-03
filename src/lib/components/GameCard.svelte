@@ -18,7 +18,7 @@
 	const bgHoverColor = $derived(selected || locked ? '' : palette.bgHoverColor);
 	const borderColor = $derived(palette.borderColor);
 
-	const style = 'font-bold text-xl border-2 rounded-xl min-w-14 h-14';
+	const style = 'font-bold text-xl border-2 rounded-xl min-w-14 min-h-14';
 
 	const onClickInternal = () => {
 		if (locked !== true) {
