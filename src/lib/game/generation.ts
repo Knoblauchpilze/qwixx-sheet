@@ -64,18 +64,6 @@ function generateDigitLine(color: Color, digits: DigitData[], rng: Rand): Digit[
 			const colorId = rndInterval(rng, 0, remaining.colors.length);
 
 			const digitColor = remaining.colors[colorId];
-			console.log(
-				'picked',
-				digit.value,
-				' (at ',
-				digit.id,
-				') with color ',
-				digitColor,
-				' (remaining: ',
-				remaining.colors.length,
-				')'
-			);
-
 			out.push(newDigit(digit.value, digitColor));
 
 			remaining.colors.splice(colorId, 1);
@@ -93,13 +81,9 @@ function generateCustomLayout(seed: string): Qwixx {
 
 	const rng = new Rand(seed);
 
-	console.log('generating red');
 	const reds = generateDigitLine(Color.RED, digits, rng);
-	console.log('generating yellow');
 	const yellows = generateDigitLine(Color.YELLOW, digits, rng);
-	console.log('generating green');
 	const greens = generateDigitLine(Color.GREEN, digits, rng);
-	console.log('generating blue');
 	const blues = generateDigitLine(Color.BLUE, digits, rng);
 
 	return {
