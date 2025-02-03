@@ -16,6 +16,8 @@ export const load: PageServerLoad = async () => {
 		blues: digits.blues,
 
 		penaltyCount: 4,
-		penaltyScore: -5
+		penaltyScore: -5,
+
+		sameDigitBonus: 3
 	};
 };
