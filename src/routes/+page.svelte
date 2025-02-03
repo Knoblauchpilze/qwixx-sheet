@@ -3,7 +3,6 @@
 	import GameCard from '$lib/components/GameCard.svelte';
 	import PenaltyCard from '$lib/components/PenaltyCard.svelte';
 	import { Color } from '$lib/enums/color';
-	import { generateAscendingLine, generateDescendingLine } from '$lib/game/digit';
 	import { calculateLineScore } from '$lib/game/line';
 	import {
 		FlexContainer,
