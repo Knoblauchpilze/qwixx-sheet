@@ -99,10 +99,10 @@
 	}
 
 	function onReset() {
-		reds = generateAscendingLine();
-		yellows = generateAscendingLine();
-		greens = generateDescendingLine();
-		blues = generateDescendingLine();
+		reds = data.reds;
+		yellows = data.yellows;
+		greens = data.greens;
+		blues = data.blues;
 
 		lastTicked = {
 			reds: [],
