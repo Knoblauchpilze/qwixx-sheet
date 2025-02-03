@@ -86,7 +86,7 @@
 		{#each line as digit, index}
 			<GameCard
 				text={'' + digit.value}
-				{color}
+				color={digit.color}
 				selected={digit.selected}
 				locked={isDigitLocked(index)}
 				onClick={(ticked: boolean): boolean => {
