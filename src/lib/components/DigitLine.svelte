@@ -9,15 +9,15 @@
 	interface Props {
 		color: Color;
 		line: Digit[];
+		history: number[];
 		locked: boolean;
 		onClick?: (ticked: boolean) => void;
 	}
 
-	let { color, line, locked, onClick }: Props = $props();
+	let { color, line, history = $bindable(), locked, onClick }: Props = $props();
 
 	let automaticallyLocked = $state(false);
 	let score = $derived(calculateLineScore(line));
-	let lastDigitsTicked: number[] = $state([]);
 
 	function onDigitClicked(digitIndex: number, ticked: boolean): boolean {
 		const out = checkDigit(line, digitIndex, ticked);
@@ -26,7 +26,7 @@
 		}
 
 		if (out) {
-			lastDigitsTicked.push(digitIndex);
+			history.push(digitIndex);
 			if (isLastDigit(digitIndex)) {
 				automaticallyLocked = true;
 				locked = true;
@@ -34,7 +34,7 @@
 		}
 		if (!out) {
 			if (isIndexEqualToLastDigitTicked(digitIndex)) {
-				lastDigitsTicked.pop();
+				history.pop();
 			}
 			if (automaticallyLocked) {
 				locked = !isLastDigit(digitIndex);
@@ -50,7 +50,7 @@
 
 	function isDigitBeforeLastTicked(digitIndex: number): boolean {
 		// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/at
-		const lastTickedDigitIndex = lastDigitsTicked.at(-1);
+		const lastTickedDigitIndex = history.at(-1);
 		if (lastTickedDigitIndex === undefined) {
 			return false;
 		}
@@ -62,11 +62,11 @@
 	}
 
 	function isIndexEqualToLastDigitTicked(digitIndex: number): boolean {
-		if (lastDigitsTicked.length === 0) {
+		if (history.length === 0) {
 			return false;
 		}
 
-		const lastDigitIndexTicked = lastDigitsTicked.at(-1);
+		const lastDigitIndexTicked = history.at(-1);
 		return lastDigitIndexTicked === digitIndex;
 	}
 

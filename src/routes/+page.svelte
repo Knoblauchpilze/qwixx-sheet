@@ -18,6 +18,13 @@
 	let greens = $state(generateDescendingLine());
 	let blues = $state(generateDescendingLine());
 
+	let lastTicked = $state({
+		reds: [],
+		yellows: [],
+		greens: [],
+		blues: []
+	});
+
 	let penalties = $state([false, false, false, false]);
 	let lockedLines = $state([false, false, false, false]);
 
@@ -59,6 +66,13 @@
 		greens = generateDescendingLine();
 		blues = generateDescendingLine();
 
+		lastTicked = {
+			reds: [],
+			yellows: [],
+			greens: [],
+			blues: []
+		};
+
 		penalties = [false, false, false, false];
 		lockedLines = [false, false, false, false];
 
@@ -75,20 +89,34 @@
 
 	<FlexContainer align={'stretch'}>
 		<FlexContainer>
-			<DigitLine color={Color.RED} line={reds} locked={lockedLines[0]} onClick={onDigitClicked} />
+			<DigitLine
+				color={Color.RED}
+				line={reds}
+				bind:history={lastTicked.reds}
+				locked={lockedLines[0]}
+				onClick={onDigitClicked}
+			/>
 			<DigitLine
 				color={Color.YELLOW}
 				line={yellows}
+				bind:history={lastTicked.yellows}
 				locked={lockedLines[1]}
 				onClick={onDigitClicked}
 			/>
 			<DigitLine
 				color={Color.GREEN}
 				line={greens}
+				bind:history={lastTicked.greens}
 				locked={lockedLines[2]}
 				onClick={onDigitClicked}
 			/>
-			<DigitLine color={Color.BLUE} line={blues} locked={lockedLines[3]} onClick={onDigitClicked} />
+			<DigitLine
+				color={Color.BLUE}
+				line={blues}
+				bind:history={lastTicked.blues}
+				locked={lockedLines[3]}
+				onClick={onDigitClicked}
+			/>
 		</FlexContainer>
 
 		<FlexContainer vertical={false} extensible={false} align={'end'}>
