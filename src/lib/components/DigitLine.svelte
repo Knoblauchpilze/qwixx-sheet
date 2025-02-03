@@ -16,7 +16,7 @@
 	let { color, line, locked, onClick }: Props = $props();
 
 	let score = $derived(calculateLineScore(line));
-	let lastDigitTicked = $state(-1);
+	let lastDigitsTicked: number[] = $state([]);
 
 	function onDigitClicked(digitIndex: number, ticked: boolean): boolean {
 		const out = checkDigit(line, digitIndex, ticked);
@@ -25,7 +25,10 @@
 		}
 
 		if (out) {
-			lastDigitTicked = digitIndex;
+			lastDigitsTicked.push(digitIndex);
+		}
+		if (!out && lastDigitsTicked.length > 0 && digitIndex === lastDigitsTicked.at(-1)) {
+			lastDigitsTicked.pop();
 		}
 
 		return out;
@@ -33,6 +36,15 @@
 
 	function onLineLocked(ticked: boolean) {
 		locked = ticked;
+	}
+
+	function isDigitBeforeLastTicked(digitIndex: number): boolean {
+		// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/at
+		const lastTickedDigitIndex = lastDigitsTicked.at(-1);
+		if (lastTickedDigitIndex === undefined) {
+			return false;
+		}
+		return digitIndex < lastTickedDigitIndex;
 	}
 </script>
 
@@ -43,7 +55,7 @@
 				text={'' + digit.value}
 				{color}
 				selected={digit.selected}
-				locked={locked || index < lastDigitTicked}
+				locked={locked || isDigitBeforeLastTicked(index)}
 				onClick={(ticked: boolean): boolean => {
 					return onDigitClicked(index, ticked);
 				}}
