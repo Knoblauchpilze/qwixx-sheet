@@ -4,12 +4,8 @@ function countTickedDigits(line: Digit[]): number {
 	return line.reduce((sum, digit) => (digit.selected ? sum + 1 : sum), 0);
 }
 
-export function calculateLineScore(line: Digit[]): number {
-	const count = countTickedDigits(line);
-
-	// TODO: it seems there's a bonus equal to the amount of digits
-	// ticked plus one.
-	switch (count) {
+function scoreFromNumberOfDigitsChecked(digitsTicked: number): number {
+	switch (digitsTicked) {
 		case 1:
 			return 1;
 		case 2:
@@ -32,9 +28,34 @@ export function calculateLineScore(line: Digit[]): number {
 			return 55;
 		case 11:
 			return 66;
+		case 12:
+			return 78;
 		default:
 			return 0;
 	}
+}
+
+function scoreFromLastDigitTicked(lastDigitTicked: boolean, digitsTicked: number): number {
+	if (!lastDigitTicked) {
+		return 0;
+	}
+
+	const scoreWithoutBonus = scoreFromNumberOfDigitsChecked(digitsTicked);
+	const scoreWithAdditionalDigitTickedForClosingTheLine = scoreFromNumberOfDigitsChecked(
+		digitsTicked + 1
+	);
+
+	return scoreWithAdditionalDigitTickedForClosingTheLine - scoreWithoutBonus;
+}
+
+export function calculateLineScore(line: Digit[]): number {
+	const count = countTickedDigits(line);
+	const scoreFromCount = scoreFromNumberOfDigitsChecked(count);
+	// http://middys.nsv.de/wp-content/uploads/2018/01/qwixx-classic-english.pdf
+	// https://stackoverflow.com/questions/58780817/using-optional-chaining-operator-for-object-property-access
+	const scoreFromLastDigit = scoreFromLastDigitTicked(line.at(-1)?.selected ?? false, count);
+
+	return scoreFromCount + scoreFromLastDigit;
 }
 
 function isLastDigitClickedWithoutMinimumRequirement(

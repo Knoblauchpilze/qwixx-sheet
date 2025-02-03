@@ -209,7 +209,7 @@ describe.concurrent('Calculating score', () => {
 		line[4].selected = true;
 		line[6].selected = true;
 		line[8].selected = true;
-		line[10].selected = true;
+		line[9].selected = true;
 
 		expect(calculateLineScore(line)).toBe(15);
 	});
@@ -234,7 +234,7 @@ describe.concurrent('Calculating score', () => {
 		line[5].selected = true;
 		line[6].selected = true;
 		line[7].selected = true;
-		line[10].selected = true;
+		line[9].selected = true;
 
 		expect(calculateLineScore(line)).toBe(28);
 	});
@@ -248,27 +248,12 @@ describe.concurrent('Calculating score', () => {
 		line[6].selected = true;
 		line[7].selected = true;
 		line[8].selected = true;
-		line[10].selected = true;
+		line[9].selected = true;
 
 		expect(calculateLineScore(line)).toBe(36);
 	});
 
 	it('with 9 digits ticked', () => {
-		const line = generateAscendingLine();
-		line[2].selected = true;
-		line[3].selected = true;
-		line[4].selected = true;
-		line[5].selected = true;
-		line[6].selected = true;
-		line[7].selected = true;
-		line[8].selected = true;
-		line[9].selected = true;
-		line[10].selected = true;
-
-		expect(calculateLineScore(line)).toBe(45);
-	});
-
-	it('with 10 digits ticked', () => {
 		const line = generateAscendingLine();
 		line[1].selected = true;
 		line[2].selected = true;
@@ -279,12 +264,27 @@ describe.concurrent('Calculating score', () => {
 		line[7].selected = true;
 		line[8].selected = true;
 		line[9].selected = true;
-		line[10].selected = true;
+
+		expect(calculateLineScore(line)).toBe(45);
+	});
+
+	it('with 10 digits ticked', () => {
+		const line = generateAscendingLine();
+		line[0].selected = true;
+		line[1].selected = true;
+		line[2].selected = true;
+		line[3].selected = true;
+		line[4].selected = true;
+		line[5].selected = true;
+		line[6].selected = true;
+		line[7].selected = true;
+		line[8].selected = true;
+		line[9].selected = true;
 
 		expect(calculateLineScore(line)).toBe(55);
 	});
 
-	it('with 11 digit ticked', () => {
+	it('with 11 digit ticked expect bonus to be applied', () => {
 		const line = generateAscendingLine();
 		line[0].selected = true;
 		line[1].selected = true;
@@ -298,6 +298,18 @@ describe.concurrent('Calculating score', () => {
 		line[9].selected = true;
 		line[10].selected = true;
 
-		expect(calculateLineScore(line)).toBe(66);
+		expect(calculateLineScore(line)).toBe(78);
+	});
+
+	it('when last digit is ticked expect bonus to be applied', () => {
+		const line = generateAscendingLine();
+		line[2].selected = true;
+		line[5].selected = true;
+		line[6].selected = true;
+		line[7].selected = true;
+		line[9].selected = true;
+		line[10].selected = true;
+
+		expect(calculateLineScore(line)).toBe(28);
 	});
 });
