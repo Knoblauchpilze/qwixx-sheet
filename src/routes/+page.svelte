@@ -12,11 +12,13 @@
 		StyledTitle
 	} from '@totocorpsoftwareinc/frontend-toolkit';
 
+	const { data } = $props();
+
 	// https://svelte.dev/docs/svelte/$state
-	let reds = $state(generateAscendingLine());
-	let yellows = $state(generateAscendingLine());
-	let greens = $state(generateDescendingLine());
-	let blues = $state(generateDescendingLine());
+	let reds = $state(data.reds);
+	let yellows = $state(data.yellows);
+	let greens = $state(data.greens);
+	let blues = $state(data.blues);
 
 	let lastTicked = $state({
 		reds: [],
@@ -25,7 +27,7 @@
 		blues: []
 	});
 
-	let penalties = $state([false, false, false, false]);
+	let penalties = $state(Array(data.penaltyCount).fill(false));
 	let lockedLines = $state([false, false, false, false]);
 
 	let score = $state(0);
@@ -37,8 +39,7 @@
 			return 0;
 		}
 
-		const PENALTY = -5;
-		return count * PENALTY;
+		return count * data.penaltyScore;
 	}
 
 	function calculateScore(): number {
@@ -73,12 +74,11 @@
 			blues: []
 		};
 
-		penalties = [false, false, false, false];
+		penalties = Array(data.penaltyCount).fill(false);
 		lockedLines = [false, false, false, false];
 
 		score = 0;
 		penaltyScore = 0;
-		console.log('reset');
 	}
 </script>
 
