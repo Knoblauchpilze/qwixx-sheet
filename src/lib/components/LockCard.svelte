@@ -1,8 +1,5 @@
 <script lang="ts">
 	import { Color } from '$lib/enums/color';
-	// https://stackoverflow.com/questions/67337435/how-to-config-for-using-svg-file-in-sveltekit
-	import PadlockLocked from '$lib/assets/padlock-locked.svg?raw';
-	import PadlockUnlocked from '$lib/assets/padlock-open.svg?raw';
 	import SvgCard from './SvgCard.svelte';
 
 	interface Props {
@@ -13,6 +10,8 @@
 
 	let { locked, color, onClick }: Props = $props();
 
+	let svgBackground = $derived(locked ? 'bg-padlock-locked' : 'bg-padlock-open');
+
 	const handleClick = () => {
 		locked = !locked;
 		if (onClick !== undefined) {
@@ -22,15 +21,4 @@
 	};
 </script>
 
-{#if !locked}
-	<SvgCard {color} selected={locked} onClick={handleClick}>
-		<!-- https://sveltejs.github.io/eslint-plugin-svelte/rules/no-at-html-tags/ -->
-		<!-- In this case it's safe to disable this rule as we own the injected SVG -->
-		<!-- eslint-disable svelte/no-at-html-tags -->
-		{@html PadlockUnlocked}
-	</SvgCard>
-{:else}
-	<SvgCard {color} selected={locked} onClick={handleClick}>
-		{@html PadlockLocked}
-	</SvgCard>
-{/if}
+<SvgCard {svgBackground} {color} selected={locked} onClick={handleClick} />

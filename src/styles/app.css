@@ -31,4 +31,7 @@
 	--color-qblue-light: #364ebf;
 	--color-qblue-medium: #1b2f8c;
 	--color-qblue-dark: #0d1c63;
+
+	--background-image-padlock-open: url('$lib/assets/padlock-open.svg');
+	--background-image-padlock-locked: url('$lib/assets/padlock-locked.svg');
 }
