@@ -28,6 +28,4 @@
 	};
 </script>
 
-<button class="{style} {text} {bg} {border} {svgBackground}" onclick={onClickInternal}>
-	Test
-</button>
+<button class="{style} {text} {bg} {border} {svgBackground}" onclick={onClickInternal}> X </button>
