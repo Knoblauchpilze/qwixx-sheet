@@ -21,7 +21,10 @@
 
 	function onDigitClicked(digitIndex: number, ticked: boolean): boolean {
 		const out = checkDigit(line, digitIndex, ticked);
-		if (onClick !== undefined) {
+
+		const clickWasAccepted = (out && ticked) || (!out && !ticked);
+
+		if (clickWasAccepted && onClick !== undefined) {
 			const digit = line.at(digitIndex);
 			if (digit !== undefined) {
 				onClick(color, digit, ticked);
