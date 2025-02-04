@@ -10,7 +10,7 @@
 
 	let { locked, color, onClick }: Props = $props();
 
-	let svgBackground = $derived(locked ? 'bg-padlock-locked' : 'bg-padlock-open');
+	let svgBackground = $derived(determineSvgIcon(color, locked));
 
 	const handleClick = () => {
 		locked = !locked;
@@ -19,6 +19,21 @@
 		}
 		return locked;
 	};
+
+	function determineSvgIcon(color: Color, locked: boolean): string {
+		switch (color) {
+			case Color.RED:
+				return locked ? 'bg-padlock-red-locked' : 'bg-padlock-red-open';
+			case Color.YELLOW:
+				return locked ? 'bg-padlock-yellow-locked' : 'bg-padlock-yellow-open';
+			case Color.GREEN:
+				return locked ? 'bg-padlock-green-locked' : 'bg-padlock-green-open';
+			case Color.BLUE:
+				return locked ? 'bg-padlock-blue-locked' : 'bg-padlock-blue-open';
+		}
+
+		return '';
+	}
 </script>
 
 <SvgCard {svgBackground} {color} selected={locked} onClick={handleClick} />
