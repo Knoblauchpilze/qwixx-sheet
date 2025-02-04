@@ -1,26 +1,24 @@
 <script lang="ts">
 	import { Color } from '$lib/enums/color';
-	import type { Snippet } from 'svelte';
 	import { cssColorsFromColor } from './colorUtils';
 
 	interface Props {
+		svgBackground: string;
 		color: Color;
 		selected?: boolean;
 		onClick?: (ticked: boolean) => boolean;
-		children?: Snippet;
 	}
 
-	let { color, selected = false, onClick, children }: Props = $props();
+	let { svgBackground, color, selected = false, onClick }: Props = $props();
 
 	const palette = $derived(cssColorsFromColor(color));
 
-	// https://tailwindcss.com/docs/fill
-	// See also the changes in the svg files.
+	const style = 'min-w-14 min-h-14';
+	const text = 'font-bold text-xl text-transparent';
+	const border = $derived('border-2 rounded-xl ' + palette.borderColor);
 	const bgColor = $derived(selected ? palette.bgSelectedColor : palette.bgColor);
 	const bgHoverColor = $derived(selected ? '' : palette.bgHoverColor);
-	const borderColor = $derived(palette.borderColor);
-
-	const style = 'font-bold text-xl border-2 rounded-xl min-w-14 min-h-14';
+	const bg = $derived('bg-contain bg-center bg-no-repeat ' + bgColor + ' ' + bgHoverColor);
 
 	const onClickInternal = () => {
 		selected = !selected;
@@ -30,9 +28,6 @@
 	};
 </script>
 
-<button
-	class="{palette.textColor} {bgColor} {borderColor} {bgHoverColor} {style}"
-	onclick={onClickInternal}
->
-	{@render children?.()}
+<button class="{style} {text} {bg} {border} {svgBackground}" onclick={onClickInternal}>
+	Test
 </button>
