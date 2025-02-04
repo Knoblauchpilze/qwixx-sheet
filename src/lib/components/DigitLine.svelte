@@ -11,7 +11,7 @@
 		line: Digit[];
 		history: number[];
 		locked: boolean;
-		onClick?: (ticked: boolean) => void;
+		onClick?: (lineColor: Color, digit: Digit, ticked: boolean) => void;
 	}
 
 	let { color, line, history = $bindable(), locked, onClick }: Props = $props();
@@ -22,7 +22,10 @@
 	function onDigitClicked(digitIndex: number, ticked: boolean): boolean {
 		const out = checkDigit(line, digitIndex, ticked);
 		if (onClick !== undefined) {
-			onClick(ticked);
+			const digit = line.at(digitIndex);
+			if (digit !== undefined) {
+				onClick(color, digit, ticked);
+			}
 		}
 
 		if (out) {
