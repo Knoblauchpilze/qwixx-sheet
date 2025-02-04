@@ -215,7 +215,7 @@
 	}
 </script>
 
-<FlexContainer align={'stretch'} styling={'border-2 rounded-xl border-accent'}>
+<FlexContainer styling={'border-2 rounded-xl border-accent'}>
 	<FlexContainer vertical={false} extensible={false}>
 		<StyledTitle text="Qwixx sheet" />
 	</FlexContainer>
@@ -252,7 +252,7 @@
 			/>
 		</FlexContainer>
 
-		<FlexContainer vertical={false} extensible={false} align={'end'}>
+		<FlexContainer vertical={false} extensible={false}>
 			<FlexContainer vertical={false} justify={'center'}>
 				{#each penalties as penalty, index}
 					<PenaltyCard
