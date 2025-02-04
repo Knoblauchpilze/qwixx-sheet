@@ -138,7 +138,7 @@
 		}
 	}
 
-	function onDigitUnticked(ticked: boolean): boolean {
+	function onDigitUnticked(): boolean {
 		const entry = history.at(-1);
 		if (entry === undefined) {
 			return false;
@@ -163,7 +163,6 @@
 		}
 
 		if (processed) {
-			console.log('unticked: ', JSON.stringify(entry.digit), 'ticked: ', ticked);
 			history.pop();
 		}
 
