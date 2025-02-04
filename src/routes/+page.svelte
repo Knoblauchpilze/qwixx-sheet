@@ -4,6 +4,7 @@
 	import PenaltyCard from '$lib/components/PenaltyCard.svelte';
 	import { Color } from '$lib/enums/color';
 	import { DigitLayout } from '$lib/enums/digitLayout';
+	import type { Digit } from '$lib/game/digit.js';
 	import { calculateLineScore } from '$lib/game/line';
 	import {
 		FlexContainer,
@@ -20,12 +21,31 @@
 	let greens = $state(data.greens);
 	let blues = $state(data.blues);
 
-	let lastTicked = $state({
+	// The history for each line is a list of indices, representing
+	// the indices of the digits that were clicked.
+	interface History {
+		reds: number[];
+		yellows: number[];
+		greens: number[];
+		blues: number[];
+	}
+	let lastTicked: History = $state({
 		reds: [],
 		yellows: [],
 		greens: [],
 		blues: []
 	});
+	// This general history is a list of digits (with a color and a
+	// value) to be displayed as a hint. It also contains the line in
+	// which the digit is. The digit data allows to display the value
+	// as a hint in the UI. Additionally, the line information can be
+	// used to clear a digit (i.e. undo feature) as we can find each
+	// digit's in its line and update it.
+	interface DigitHistoryEntry {
+		digit: Digit;
+		line: Color;
+	}
+	let history: DigitHistoryEntry[] = $state([]);
 
 	let penalties = $state(Array(data.penaltyCount).fill(false));
 	let lockedLines = $state([false, false, false, false]);
@@ -87,9 +107,67 @@
 		return positive + bonus + penalties;
 	}
 
-	function onDigitClicked() {
+	function onDigitClicked(lineColor: Color, digit: Digit, ticked: boolean) {
 		bonusScore = calculateBonusScore();
 		score = calculateScore();
+
+		if (ticked) {
+			history.push({
+				digit: digit,
+				line: lineColor
+			});
+		} else {
+			const index = history.findIndex(
+				(d) => d.digit.value === digit.value && d.digit.color === digit.color
+			);
+			if (index !== -1) {
+				history.splice(index, 1);
+			}
+		}
+	}
+
+	function untickDigit(line: Digit[], history: number[], toRemove: Digit) {
+		let index = line.findIndex((d) => d.color === toRemove.color && d.value === toRemove.value);
+		if (index !== -1) {
+			line[index].selected = false;
+		}
+
+		index = history.findIndex((d) => d === index);
+		if (index !== -1) {
+			history.splice(index, 1);
+		}
+	}
+
+	function onDigitUnticked(ticked: boolean): boolean {
+		const entry = history.at(-1);
+		if (entry === undefined) {
+			return false;
+		}
+
+		let processed = true;
+		switch (entry.line) {
+			case Color.RED:
+				untickDigit(reds, lastTicked.reds, entry.digit);
+				break;
+			case Color.YELLOW:
+				untickDigit(yellows, lastTicked.yellows, entry.digit);
+				break;
+			case Color.GREEN:
+				untickDigit(greens, lastTicked.greens, entry.digit);
+				break;
+			case Color.BLUE:
+				untickDigit(blues, lastTicked.blues, entry.digit);
+				break;
+			default:
+				processed = false;
+		}
+
+		if (processed) {
+			console.log('unticked: ', JSON.stringify(entry.digit), 'ticked: ', ticked);
+			history.pop();
+		}
+
+		return false;
 	}
 
 	function onPenaltyClicked(index: number, ticked: boolean) {
@@ -117,6 +195,24 @@
 		score = 0;
 		bonusScore = 0;
 		penaltyScore = 0;
+	}
+
+	function getLastTickedDigitColor(): Color {
+		if (history.length === 0) {
+			return Color.NEUTRAL;
+		}
+		return history.at(-1)?.digit.color ?? Color.NEUTRAL;
+	}
+
+	function getLastTickedDigitValue(): string {
+		if (history.length === 0) {
+			return '';
+		}
+		const entry = history.at(-1);
+		if (entry === undefined) {
+			return '';
+		}
+		return '' + entry.digit.value;
 	}
 </script>
 
@@ -168,6 +264,15 @@
 					/>
 				{/each}
 				<GameCard text={penaltyScore.toString()} color={Color.NEUTRAL} locked={true} />
+
+				<StyledText text="Last played:" styling={'m-4'} />
+				<GameCard
+					text={getLastTickedDigitValue()}
+					color={getLastTickedDigitColor()}
+					selected={false}
+					locked={history.length < 1}
+					onClick={onDigitUnticked}
+				/>
 			</FlexContainer>
 
 			<FlexContainer vertical={false} justify={'center'}>
