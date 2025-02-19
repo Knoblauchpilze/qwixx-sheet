@@ -52,6 +52,7 @@
 
 	function onLineLocked(ticked: boolean) {
 		locked = ticked;
+		automaticallyLocked = false;
 	}
 
 	function isDigitBeforeLastTicked(digitIndex: number): boolean {
