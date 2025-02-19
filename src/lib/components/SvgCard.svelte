@@ -13,7 +13,7 @@
 
 	const palette = $derived(cssColorsFromColor(color));
 
-	const style = 'min-w-14 min-h-14';
+	const style = 'min-w-8 md:min-w-14 min-h-8 md:min-h-14';
 	const text = 'font-bold text-xl text-transparent';
 	const border = $derived('border-2 rounded-xl ' + palette.borderColor);
 	const bgColor = $derived(selected ? palette.bgSelectedColor : palette.bgColor);

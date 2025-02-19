@@ -2,16 +2,13 @@
 	import DigitLine from '$lib/components/DigitLine.svelte';
 	import GameCard from '$lib/components/GameCard.svelte';
 	import PenaltyCard from '$lib/components/PenaltyCard.svelte';
+	import StyledButton from '$lib/components/StyledButton.svelte';
+	import StyledTitle from '$lib/components/StyledTitle.svelte';
 	import { Color } from '$lib/enums/color';
 	import { DigitLayout } from '$lib/enums/digitLayout';
 	import type { Digit } from '$lib/game/digit.js';
 	import { calculateLineScore } from '$lib/game/line';
-	import {
-		FlexContainer,
-		StyledButton,
-		StyledText,
-		StyledTitle
-	} from '@totocorpsoftwareinc/frontend-toolkit';
+	import { FlexContainer, StyledText } from '@totocorpsoftwareinc/frontend-toolkit';
 
 	const { data } = $props();
 
@@ -264,7 +261,7 @@
 				{/each}
 				<GameCard text={penaltyScore.toString()} color={Color.NEUTRAL} locked={true} />
 
-				<StyledText text="Last played:" styling={'m-4'} />
+				<StyledText text="Last played:" styling={'m-1 md:m-4'} />
 				<GameCard
 					text={getLastTickedDigitValue()}
 					color={getLastTickedDigitColor()}
@@ -275,15 +272,15 @@
 			</FlexContainer>
 
 			<FlexContainer vertical={false} justify={'center'}>
-				<StyledText text="4 digits bonus:" styling={'m-4'} />
+				<StyledText text="4 digits bonus:" styling={'m-1 md:m-4'} />
 				<GameCard text={bonusScore.toString()} color={Color.NEUTRAL} locked={true} />
 
-				<StyledText text="Score:" styling={'m-4'} />
+				<StyledText text="Score:" styling={'m-1 md:m-4'} />
 				<GameCard text={score.toString()} color={Color.NEUTRAL} locked={true} />
 			</FlexContainer>
 		</FlexContainer>
 
-		<FlexContainer vertical={false} extensible={false} styling={'m-2'}>
+		<FlexContainer vertical={false} extensible={false} styling={'m-1 md:m-2'}>
 			<StyledButton text="Reset" border={true} onClick={onReset} />
 			<FlexContainer vertical={false} extensible={false}>
 				<form method="POST" action="?/generate" class="flex flex-row justify-evenly">
