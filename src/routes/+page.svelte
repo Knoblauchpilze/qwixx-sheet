@@ -212,12 +212,12 @@
 	}
 </script>
 
-<FlexContainer styling={'border-2 rounded-xl border-accent'}>
+<FlexContainer styling="border-2 rounded-xl border-accent">
 	<FlexContainer vertical={false} extensible={false}>
 		<StyledTitle text="Qwixx sheet" />
 	</FlexContainer>
 
-	<FlexContainer align={'stretch'}>
+	<FlexContainer align="stretch">
 		<FlexContainer>
 			<DigitLine
 				color={Color.RED}
@@ -250,8 +250,8 @@
 		</FlexContainer>
 
 		<FlexContainer vertical={false} extensible={false}>
-			<FlexContainer vertical={false} justify={'center'}>
-				{#each penalties as penalty, index}
+			<FlexContainer vertical={false} justify="center">
+				{#each penalties as penalty, index (index)}
 					<PenaltyCard
 						selected={penalty}
 						onClick={(ticked: boolean) => {
@@ -261,7 +261,7 @@
 				{/each}
 				<GameCard text={penaltyScore.toString()} color={Color.NEUTRAL} locked={true} />
 
-				<StyledText text="Last played:" styling={'m-1 md:m-4'} />
+				<StyledText text="Last played:" styling="m-1 md:m-4" />
 				<GameCard
 					text={getLastTickedDigitValue()}
 					color={getLastTickedDigitColor()}
@@ -271,16 +271,16 @@
 				/>
 			</FlexContainer>
 
-			<FlexContainer vertical={false} justify={'center'}>
-				<StyledText text="4 digits bonus:" styling={'m-1 md:m-4'} />
+			<FlexContainer vertical={false} justify="center">
+				<StyledText text="4 digits bonus:" styling="m-1 md:m-4" />
 				<GameCard text={bonusScore.toString()} color={Color.NEUTRAL} locked={true} />
 
-				<StyledText text="Score:" styling={'m-1 md:m-4'} />
+				<StyledText text="Score:" styling="m-1 md:m-4" />
 				<GameCard text={score.toString()} color={Color.NEUTRAL} locked={true} />
 			</FlexContainer>
 		</FlexContainer>
 
-		<FlexContainer vertical={false} extensible={false} styling={'m-1 md:m-2'}>
+		<FlexContainer vertical={false} extensible={false} styling="m-1 md:m-2">
 			<StyledButton text="Reset" border={true} onClick={onReset} />
 			<FlexContainer vertical={false} extensible={false}>
 				<form method="POST" action="?/generate" class="flex flex-row justify-evenly">

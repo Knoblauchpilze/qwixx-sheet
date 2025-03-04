@@ -90,7 +90,7 @@
 
 <FlexContainer vertical={false}>
 	<FlexContainer vertical={false} styling="w-4/5 mr-4">
-		{#each line as digit, index}
+		{#each line as digit, index (digit.color + digit.value)}
 			<GameCard
 				text={'' + digit.value}
 				color={digit.color}
