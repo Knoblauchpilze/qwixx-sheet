@@ -19,9 +19,9 @@
 <HeroContainer
 	width={$heroContainer.width}
 	height={$heroContainer.height}
-	align={'stretch'}
+	align="stretch"
 	bgColor={$heroContainer.color}
-	bgOverlay={'bg-transparent'}
+	bgOverlay="bg-transparent"
 >
 	{@render children?.()}
 </HeroContainer>
