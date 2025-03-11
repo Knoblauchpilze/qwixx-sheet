@@ -23,7 +23,7 @@ jobs:
       - name: Enable auto-merge
         # https://stackoverflow.com/questions/69916356/how-do-i-enable-auto-merge-on-a-github-pull-request-via-the-rest-api
         # In non interactive mode we need the --merge
-        run: gh pr --merge "$PR_URL" --auto
+        run: gh pr merge "$PR_URL" --merge --auto
         env:
           PR_URL: ${{ github.event.pull_request.html_url }}
           GH_TOKEN: ${{ secrets.DEPENDABOT_AUTO_APPROVE_TOKEN }}
