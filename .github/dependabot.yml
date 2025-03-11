@@ -10,7 +10,7 @@ updates:
     directories:
       - '/'
     schedule:
-      interval: 'weekly'
+      interval: daily
     open-pull-requests-limit: 20
     allow:
-      - dependency-type: 'direct'
+      - dependency-type: direct
