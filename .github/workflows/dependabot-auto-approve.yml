@@ -22,6 +22,7 @@ jobs:
           GH_TOKEN: ${{ secrets.DEPENDABOT_AUTO_APPROVE_TOKEN }}
       - name: Enable auto-merge
         # https://stackoverflow.com/questions/69916356/how-do-i-enable-auto-merge-on-a-github-pull-request-via-the-rest-api
+        # https://stackoverflow.com/questions/69112842/how-can-i-allow-github-automerge-to-perform-the-merge-without-explicitly-enablin
         # In non interactive mode we need the --merge
         run: gh pr merge "$PR_URL" --squash --auto
         env:
