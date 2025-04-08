@@ -16,7 +16,7 @@
 		"coverage": "TZ=UTC vitest run --coverage"
 	},
 	"dependencies": {
-		"@totocorpsoftwareinc/frontend-toolkit": "^0.0.31"
+		"@totocorpsoftwareinc/frontend-toolkit": "^0.0.32"
 	},
 	"devDependencies": {
 		"@eslint/compat": "^1.2.8",
