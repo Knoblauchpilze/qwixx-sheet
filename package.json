@@ -21,7 +21,7 @@
 	"devDependencies": {
 		"@eslint/compat": "^1.2.8",
 		"@sveltejs/adapter-node": "^5.2.12",
-		"@sveltejs/enhanced-img": "^0.4.4",
+		"@sveltejs/enhanced-img": "^0.5.0",
 		"@sveltejs/kit": "^2.20.7",
 		"@sveltejs/vite-plugin-svelte": "^5.0.3",
 		"@tailwindcss/postcss": "^4.1.4",
