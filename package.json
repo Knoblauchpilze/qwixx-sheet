@@ -39,7 +39,7 @@
 		"typescript": "^5.9.3",
 		"typescript-eslint": "^8.47.0",
 		"vite": "^7.2.2",
-		"vitest": "^4.0.4",
+		"vitest": "^4.0.13",
 		"rand-seed": "^3.0.0"
 	}
 }
