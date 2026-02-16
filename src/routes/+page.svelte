@@ -13,10 +13,10 @@
 	const { data } = $props();
 
 	// https://svelte.dev/docs/svelte/$state
-	let reds = $state(data.reds);
-	let yellows = $state(data.yellows);
-	let greens = $state(data.greens);
-	let blues = $state(data.blues);
+	let reds = $derived(data.reds);
+	let yellows = $derived(data.yellows);
+	let greens = $derived(data.greens);
+	let blues = $derived(data.blues);
 
 	// The history for each line is a list of indices, representing
 	// the indices of the digits that were clicked.
@@ -44,7 +44,7 @@
 	}
 	let history: DigitHistoryEntry[] = $state([]);
 
-	let penalties = $state(Array(data.penaltyCount).fill(false));
+	let penalties = $derived(Array(data.penaltyCount).fill(false));
 	let lockedLines = $state([false, false, false, false]);
 
 	let score = $state(0);
