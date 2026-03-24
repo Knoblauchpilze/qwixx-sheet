@@ -8,10 +8,13 @@
 
 	let { text = 'Click me', enabled = true, border = false, onClick }: Props = $props();
 
-	let borderStyle = $state('');
-	if (border === true) {
-		borderStyle = 'border-solid border-2 border-secondary ';
-	}
+	let borderStyle = $derived.by(() => {
+		if (border == true) {
+			return 'border-solid border-2 border-secondary ';
+		} else {
+			return '';
+		}
+	});
 	// https://tailwindcss.com/docs/responsive-design
 	borderStyle += 'rounded-[8px] px-3 md:px-12 py-1 md:py-4';
 </script>
