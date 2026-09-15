@@ -1,10 +1,10 @@
-FROM node:22 AS builder
+FROM node:26 AS builder
 WORKDIR /build
 COPY . ./
 RUN npm install
 RUN npm run build
 
-FROM node:22-alpine3.18
+FROM node:26-alpine3.24
 ARG GIT_COMMIT_HASH="undefined"
 ARG SERVER_ORIGIN="http://localhost:3001"
 ARG NODE_PORT=3001
