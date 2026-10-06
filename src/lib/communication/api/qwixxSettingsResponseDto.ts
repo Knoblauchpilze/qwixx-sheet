@@ -1,4 +1,4 @@
-import { DigitLayout } from '$lib/enums/digitLayout';
+import { DigitLayout } from '#lib/enums/digitLayout';
 
 export interface QwixxSettingsResponseDto {
 	readonly layout: DigitLayout;

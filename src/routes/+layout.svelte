@@ -1,9 +1,9 @@
 <script lang="ts">
-	import '$styles/app.css';
+	import '#styles/app.css';
 	import { type Snippet } from 'svelte';
 
-	import pageTitle from '$lib/stores/ui/pageTitle';
-	import heroContainer from '$lib/stores/ui/heroContainer';
+	import pageTitle from '#lib/stores/ui/pageTitle';
+	import heroContainer from '#lib/stores/ui/heroContainer';
 	import { HeroContainer } from '@totocorpsoftwareinc/frontend-toolkit';
 
 	interface Props {

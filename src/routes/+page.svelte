@@ -1,13 +1,13 @@
 <script lang="ts">
-	import DigitLine from '$lib/components/DigitLine.svelte';
-	import GameCard from '$lib/components/GameCard.svelte';
-	import PenaltyCard from '$lib/components/PenaltyCard.svelte';
-	import StyledButton from '$lib/components/StyledButton.svelte';
-	import StyledTitle from '$lib/components/StyledTitle.svelte';
-	import { Color } from '$lib/enums/color';
-	import { DigitLayout } from '$lib/enums/digitLayout';
-	import type { Digit } from '$lib/game/digit.js';
-	import { calculateLineScore } from '$lib/game/line';
+	import DigitLine from '#lib/components/DigitLine.svelte';
+	import GameCard from '#lib/components/GameCard.svelte';
+	import PenaltyCard from '#lib/components/PenaltyCard.svelte';
+	import StyledButton from '#lib/components/StyledButton.svelte';
+	import StyledTitle from '#lib/components/StyledTitle.svelte';
+	import { Color } from '#lib/enums/color';
+	import { DigitLayout } from '#lib/enums/digitLayout';
+	import type { Digit } from '#lib/game/digit.js';
+	import { calculateLineScore } from '#lib/game/line';
 	import { FlexContainer, StyledText } from '@totocorpsoftwareinc/frontend-toolkit';
 
 	const { data } = $props();

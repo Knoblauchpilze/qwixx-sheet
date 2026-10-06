@@ -1,5 +1,5 @@
-import { Color } from '$lib/enums/color';
-import { DigitLayout } from '$lib/enums/digitLayout';
+import { Color } from '#lib/enums/color';
+import { DigitLayout } from '#lib/enums/digitLayout';
 import { generateAscendingLine, generateDescendingLine, newDigit, type Digit } from './digit';
 
 import Rand from 'rand-seed';

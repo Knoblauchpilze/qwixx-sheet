@@ -32,12 +32,12 @@
 	--color-qblue-medium: #1b2f8c;
 	--color-qblue-dark: #0d1c63;
 
-	--background-image-padlock-red-open: url('$lib/assets/padlock-red-open.svg');
-	--background-image-padlock-red-locked: url('$lib/assets/padlock-red-locked.svg');
-	--background-image-padlock-yellow-open: url('$lib/assets/padlock-yellow-open.svg');
-	--background-image-padlock-yellow-locked: url('$lib/assets/padlock-yellow-locked.svg');
-	--background-image-padlock-green-open: url('$lib/assets/padlock-green-open.svg');
-	--background-image-padlock-green-locked: url('$lib/assets/padlock-green-locked.svg');
-	--background-image-padlock-blue-open: url('$lib/assets/padlock-blue-open.svg');
-	--background-image-padlock-blue-locked: url('$lib/assets/padlock-blue-locked.svg');
+	--background-image-padlock-red-open: url('$assets/padlock-red-open.svg');
+	--background-image-padlock-red-locked: url('$assets/padlock-red-locked.svg');
+	--background-image-padlock-yellow-open: url('$assets/padlock-yellow-open.svg');
+	--background-image-padlock-yellow-locked: url('$assets/padlock-yellow-locked.svg');
+	--background-image-padlock-green-open: url('$assets/padlock-green-open.svg');
+	--background-image-padlock-green-locked: url('$assets/padlock-green-locked.svg');
+	--background-image-padlock-blue-open: url('$assets/padlock-blue-open.svg');
+	--background-image-padlock-blue-locked: url('$assets/padlock-blue-locked.svg');
 }
