@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Color } from '$lib/enums/color';
+	import { Color } from '#lib/enums/color';
 	import { cssColorsFromColor } from './colorUtils';
 
 	interface Props {

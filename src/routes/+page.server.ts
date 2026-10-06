@@ -1,9 +1,9 @@
-import { generateLayout } from '$lib/game/generation';
+import { generateLayout } from '#lib/game/generation';
 import { fail, type RequestEvent } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
-import { generateSeed } from '$lib/game/seed';
-import { loadQwixxCookies, setQwixxCookies } from '$lib/cookies';
-import { DigitLayout } from '$lib/enums/digitLayout';
+import { generateSeed } from '#lib/game/seed';
+import { loadQwixxCookies, setQwixxCookies } from '#lib/cookies';
+import { DigitLayout } from '#lib/enums/digitLayout';
 import { HttpStatus } from '@totocorpsoftwareinc/frontend-toolkit';
 
 export const load: PageServerLoad = async ({ cookies }) => {

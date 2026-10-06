@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { Color } from '$lib/enums/color';
+	import { Color } from '#lib/enums/color';
 	import { FlexContainer } from '@totocorpsoftwareinc/frontend-toolkit';
 	import GameCard from './GameCard.svelte';
 	import LockCard from './LockCard.svelte';
-	import { calculateLineScore, checkDigit } from '$lib/game/line';
-	import type { Digit } from '$lib/game/digit';
+	import { calculateLineScore, checkDigit } from '#lib/game/line';
+	import type { Digit } from '#lib/game/digit';
 
 	interface Props {
 		color: Color;

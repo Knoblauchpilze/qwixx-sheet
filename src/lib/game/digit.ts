@@ -1,4 +1,4 @@
-import type { Color } from '$lib/enums/color';
+import type { Color } from '#lib/enums/color';
 
 export interface Digit {
 	readonly value: number;

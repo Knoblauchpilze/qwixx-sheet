@@ -1,10 +1,13 @@
 import { describe, expect, it } from 'vitest';
 import { calculateLineScore, checkDigit } from './line';
 import { newDigit, generateAscendingLine, generateDescendingLine } from './digit';
+import { Color } from '#lib/enums/color';
+
+const SAMPLE_COLOR = Color.RED;
 
 describe.concurrent('Manipulating line', () => {
 	it('ticking digit should update score', () => {
-		const line = generateAscendingLine();
+		const line = generateAscendingLine(SAMPLE_COLOR);
 		expect(calculateLineScore(line)).toBe(0);
 
 		line[1].selected = true;
@@ -12,7 +15,7 @@ describe.concurrent('Manipulating line', () => {
 	});
 
 	it('ticking already ticked digit should not update score', () => {
-		const line = generateAscendingLine();
+		const line = generateAscendingLine(SAMPLE_COLOR);
 		expect(calculateLineScore(line)).toBe(0);
 
 		line[1].selected = true;
@@ -23,7 +26,7 @@ describe.concurrent('Manipulating line', () => {
 	});
 
 	it('unticking digit should update score', () => {
-		const line = generateAscendingLine();
+		const line = generateAscendingLine(SAMPLE_COLOR);
 		line[1].selected = true;
 		expect(calculateLineScore(line)).toBe(1);
 
@@ -32,7 +35,7 @@ describe.concurrent('Manipulating line', () => {
 	});
 
 	it('unticking already unticked digit should not update score', () => {
-		const line = generateAscendingLine();
+		const line = generateAscendingLine(SAMPLE_COLOR);
 		line[1].selected = true;
 		expect(calculateLineScore(line)).toBe(1);
 
@@ -45,7 +48,7 @@ describe.concurrent('Manipulating line', () => {
 });
 
 describe.concurrent('Manupulating digits', () => {
-	const SAMPLE_DIGITS = [newDigit(1), newDigit(2)];
+	const SAMPLE_DIGITS = [newDigit(1, SAMPLE_COLOR), newDigit(2, SAMPLE_COLOR)];
 
 	it('should disregard invalid indices', () => {
 		const line = SAMPLE_DIGITS;
@@ -131,14 +134,14 @@ describe.concurrent('Manupulating digits', () => {
 	});
 
 	it('should prevent ticking last digit when not enough digits are ticked', () => {
-		const line = generateAscendingLine();
+		const line = generateAscendingLine(SAMPLE_COLOR);
 
 		const actual = checkDigit(line, 10, true);
 		expect(actual).toBe(false);
 	});
 
 	it('should allow ticking last digit when enough digits are ticked', () => {
-		const line = generateAscendingLine();
+		const line = generateAscendingLine(SAMPLE_COLOR);
 
 		checkDigit(line, 0, true);
 		checkDigit(line, 1, true);
@@ -155,7 +158,7 @@ describe.concurrent('Manupulating digits', () => {
 	});
 
 	it('should not allow ticking a digit when a bigger one is ticked', () => {
-		const line = generateAscendingLine();
+		const line = generateAscendingLine(SAMPLE_COLOR);
 		checkDigit(line, 2, true);
 
 		const actual = checkDigit(line, 0, true);
@@ -165,19 +168,19 @@ describe.concurrent('Manupulating digits', () => {
 
 describe.concurrent('Calculating score', () => {
 	it('with 0 digits ticked', () => {
-		const line = generateAscendingLine();
+		const line = generateAscendingLine(SAMPLE_COLOR);
 		expect(calculateLineScore(line)).toBe(0);
 	});
 
 	it('with 1 digit ticked', () => {
-		const line = generateAscendingLine();
+		const line = generateAscendingLine(SAMPLE_COLOR);
 		line[0].selected = true;
 
 		expect(calculateLineScore(line)).toBe(1);
 	});
 
 	it('with 2 digits ticked', () => {
-		const line = generateAscendingLine();
+		const line = generateAscendingLine(SAMPLE_COLOR);
 		line[0].selected = true;
 		line[2].selected = true;
 
@@ -185,7 +188,7 @@ describe.concurrent('Calculating score', () => {
 	});
 
 	it('with 3 digits ticked', () => {
-		const line = generateDescendingLine();
+		const line = generateDescendingLine(SAMPLE_COLOR);
 		line[1].selected = true;
 		line[3].selected = true;
 		line[5].selected = true;
@@ -194,7 +197,7 @@ describe.concurrent('Calculating score', () => {
 	});
 
 	it('with 4 digits ticked', () => {
-		const line = generateDescendingLine();
+		const line = generateDescendingLine(SAMPLE_COLOR);
 		line[0].selected = true;
 		line[1].selected = true;
 		line[2].selected = true;
@@ -204,7 +207,7 @@ describe.concurrent('Calculating score', () => {
 	});
 
 	it('with 5 digits ticked', () => {
-		const line = generateAscendingLine();
+		const line = generateAscendingLine(SAMPLE_COLOR);
 		line[2].selected = true;
 		line[4].selected = true;
 		line[6].selected = true;
@@ -215,7 +218,7 @@ describe.concurrent('Calculating score', () => {
 	});
 
 	it('with 6 digits ticked', () => {
-		const line = generateAscendingLine();
+		const line = generateAscendingLine(SAMPLE_COLOR);
 		line[5].selected = true;
 		line[4].selected = true;
 		line[3].selected = true;
@@ -227,7 +230,7 @@ describe.concurrent('Calculating score', () => {
 	});
 
 	it('with 7 digits ticked', () => {
-		const line = generateAscendingLine();
+		const line = generateAscendingLine(SAMPLE_COLOR);
 		line[2].selected = true;
 		line[3].selected = true;
 		line[4].selected = true;
@@ -240,7 +243,7 @@ describe.concurrent('Calculating score', () => {
 	});
 
 	it('with 8 digits ticked', () => {
-		const line = generateAscendingLine();
+		const line = generateAscendingLine(SAMPLE_COLOR);
 		line[2].selected = true;
 		line[3].selected = true;
 		line[4].selected = true;
@@ -254,7 +257,7 @@ describe.concurrent('Calculating score', () => {
 	});
 
 	it('with 9 digits ticked', () => {
-		const line = generateAscendingLine();
+		const line = generateAscendingLine(SAMPLE_COLOR);
 		line[1].selected = true;
 		line[2].selected = true;
 		line[3].selected = true;
@@ -269,7 +272,7 @@ describe.concurrent('Calculating score', () => {
 	});
 
 	it('with 10 digits ticked', () => {
-		const line = generateAscendingLine();
+		const line = generateAscendingLine(SAMPLE_COLOR);
 		line[0].selected = true;
 		line[1].selected = true;
 		line[2].selected = true;
@@ -285,7 +288,7 @@ describe.concurrent('Calculating score', () => {
 	});
 
 	it('with 11 digit ticked expect bonus to be applied', () => {
-		const line = generateAscendingLine();
+		const line = generateAscendingLine(SAMPLE_COLOR);
 		line[0].selected = true;
 		line[1].selected = true;
 		line[2].selected = true;
@@ -302,7 +305,7 @@ describe.concurrent('Calculating score', () => {
 	});
 
 	it('when last digit is ticked expect bonus to be applied', () => {
-		const line = generateAscendingLine();
+		const line = generateAscendingLine(SAMPLE_COLOR);
 		line[2].selected = true;
 		line[5].selected = true;
 		line[6].selected = true;

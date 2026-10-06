@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { newDigit, generateAscendingLine, generateDescendingLine } from './digit';
-import { Color } from '$lib/enums/color';
+import { Color } from '#lib/enums/color';
 
 const SAMPLE_COLOR = Color.RED;
 

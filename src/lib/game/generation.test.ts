@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import { Color } from '$lib/enums/color';
+import { Color } from '#lib/enums/color';
 import { generateLayout } from './generation';
-import { DigitLayout } from '$lib/enums/digitLayout';
+import { DigitLayout } from '#lib/enums/digitLayout';
 
 const SAMPLE_SEED = 'myseed';
 const ASCENDING_DIGITS = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];

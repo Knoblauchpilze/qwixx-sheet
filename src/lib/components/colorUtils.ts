@@ -1,4 +1,4 @@
-import { Color } from '$lib/enums/color';
+import { Color } from '#lib/enums/color';
 export interface CardColor {
 	readonly textColor: string;
 	readonly bgColor: string;

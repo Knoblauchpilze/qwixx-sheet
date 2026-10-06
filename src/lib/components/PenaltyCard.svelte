@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Color } from '$lib/enums/color';
+	import { Color } from '#lib/enums/color';
 	import GameCard from './GameCard.svelte';
 
 	interface Props {
