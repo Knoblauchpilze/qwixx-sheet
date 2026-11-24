@@ -34,5 +34,7 @@
 
 <button
 	class="{palette.textColor} {bgColor} {borderColor} {bgHoverColor} {style} {textStyle} {border}"
-	onclick={onClickInternal}>{text}</button
+	onclick={onClickInternal}
 >
+	{text}
+</button>
